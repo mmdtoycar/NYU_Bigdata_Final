@@ -8,39 +8,38 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        List<String> ifAnyRowDoesNotContainTheExactNumberOfFields = CheckIfFieldMissing.checkIfFieldMissing(FILE_PATH);
 
-        if (ifAnyRowDoesNotContainTheExactNumberOfFields.size() == 0) {
-            System.out.println("All rows of data contains correct number of fields");
+        checkIfExistsWrongNumberOfFields();
+
+        checkIfExistsDuplicateCMPNum();
+
+
+    }
+
+    private static void checkIfExistsDuplicateCMPNum() {
+        System.out.println("\n[Report] Detecting if exists any duplicate CMP number...");
+        List<String> ifExistsDuplicateCMPNum = CheckDuplicateCMPNum.checkDuplicateCMPNum(FILE_PATH);
+        if (ifExistsDuplicateCMPNum.size() == 0) {
+            System.out.println("[Pass] No duplicate complaint number found!");
         } else {
-            System.out.println("The following row(s) of data contains incorrect number of fields");
+            System.out.println("[Alert] The following row(s) of data contains duplicate complaint number:");
+            for (String eachLine : ifExistsDuplicateCMPNum) {
+                System.out.println(eachLine);
+            }
+        }
+    }
+
+    private static void checkIfExistsWrongNumberOfFields() {
+        System.out.println("\n[Report] Detecting if all rows of data contains correct number of fields...");
+        List<String> ifAnyRowDoesNotContainTheExactNumberOfFields = CheckIfFieldMissing.checkIfFieldMissing(FILE_PATH);
+        if (ifAnyRowDoesNotContainTheExactNumberOfFields.size() == 0) {
+            System.out.println("[Pass] All rows of data contains correct number of fields!");
+        } else {
+            System.out.println("[Alert] The following row(s) of data contains incorrect number of fields");
             for (String eachLine : ifAnyRowDoesNotContainTheExactNumberOfFields) {
                 System.out.println(eachLine);
             }
-            System.out.println("");
         }
-
-//        long startTime = System.nanoTime();
-//        Set<String> set = new HashSet<>();
-//        try {
-//            Stream<String> lines = Files.lines( file, StandardCharsets.UTF_8 );
-//
-//            for( String line : (Iterable<String>) lines::iterator ) {
-//                String[] temp = line.split(",");
-//                if (set.contains(temp[0])) {
-//                    System.out.println(line);
-//                } else {
-//                    set.add(temp[0]);
-//                }
-//                if (temp.length != 24) {
-//                    System.out.println(line);
-//                }
-//            }
-//
-//
-//        } catch (IOException ioe){
-//            ioe.printStackTrace();
-//        }
     }
 }
 
