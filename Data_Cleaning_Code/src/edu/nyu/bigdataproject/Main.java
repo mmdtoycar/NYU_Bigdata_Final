@@ -1,10 +1,15 @@
 package edu.nyu.bigdataproject;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     private static final String FILE_PATH = "./NYPD_Complaint_Data_Historic.csv";
+
+    private static final List<String> CRIME_COMPLETION_RANGE = Arrays.asList("COMPLETED", "ATTEMPTED");
+
+    private static final List<String> LEVEL_OF_OFFENSE_RANGE = Arrays.asList("FELONY", "MISDEMEANOR", "VIOLATION");
 
     public static void main(String[] args) {
         // write your code here
@@ -25,6 +30,52 @@ public class Main {
 
         checkIfExistsWrongPDCodeMapping();
 
+        checkIfUnexpectedCrimeCompletionType();
+
+        checkIfUnexpectedLevelOfOffense();
+
+    }
+
+    private static void checkIfUnexpectedLevelOfOffense() {
+        System.out.println("\n[Report] Detecting if unexpected level of offense records...");
+        List<String> ifExistsUnexpectedLevelOfOffense =
+                CheckLevelOfOffenseRange.checkLevelOfOffenseRange(FILE_PATH, LEVEL_OF_OFFENSE_RANGE);
+        if (ifExistsUnexpectedLevelOfOffense.size() == 0) {
+            System.out.println("[Pass] No unexpected level of offense is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "unexpected level of offense:",
+                            ifExistsUnexpectedLevelOfOffense.size()));
+            for (String eachLine : ifExistsUnexpectedLevelOfOffense) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "unexpected level of offense",
+                            ifExistsUnexpectedLevelOfOffense.size()));
+        }
+    }
+
+    private static void checkIfUnexpectedCrimeCompletionType() {
+        System.out.println("\n[Report] Detecting if unexpected crime completion type records...");
+        List<String> ifExistsUnexpectedCrimeCompletionType =
+                CheckCrimeCompletionRange.checkCrimeCompletionRange(FILE_PATH, CRIME_COMPLETION_RANGE);
+        if (ifExistsUnexpectedCrimeCompletionType.size() == 0) {
+            System.out.println("[Pass] No unexpected crime completion type is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "unexpected crime completion type:",
+                            ifExistsUnexpectedCrimeCompletionType.size()));
+            for (String eachLine : ifExistsUnexpectedCrimeCompletionType) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "unexpected crime completion type",
+                            ifExistsUnexpectedCrimeCompletionType.size()));
+        }
     }
 
     private static void checkIfExistsWrongPDCodeMapping() {
@@ -43,7 +94,7 @@ public class Main {
             }
             System.out.println(
                     String.format("[Alert] The above %s row(s) of data contains " +
-                                    "wrong PD code mapping record:",
+                                    "wrong PD code mapping record",
                             ifExistsWrongPDCodesMappingProblem.size()));
         }
     }
@@ -64,7 +115,7 @@ public class Main {
             }
             System.out.println(
                     String.format("[Alert] The above %s row(s) of data contains " +
-                                    "wrong offense code mapping record:",
+                                    "wrong offense code mapping record",
                             ifExistsWrongOffenseCodesMappingProblem.size()));
         }
     }
@@ -85,7 +136,7 @@ public class Main {
             }
             System.out.println(
                     String.format("[Alert] The above %s row(s) of data contains " +
-                                    "wrong code mapping record:",
+                                    "wrong code mapping record",
                             ifExistsWrongCodesMappingProblem.size()));
         }
     }

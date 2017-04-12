@@ -14,3 +14,7 @@
 7. 43 offense code and offense detail mapping relationship may have problem.
 
 8. No PD code mapping problem is found.
+
+9. 7 rows of data contains empty crime completion record.
+
+10. No unexpected level of offense is found.
