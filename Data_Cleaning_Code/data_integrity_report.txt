@@ -1,0 +1,5 @@
+1. No wrong number of fields record found.
+
+2. No duplicate compliant number record found.
+
+3. 5415 rows of record contains wrong date error problem.

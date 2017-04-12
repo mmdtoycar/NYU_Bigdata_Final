@@ -9,9 +9,9 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
 
-        checkIfExistsWrongNumberOfFields();
-
-        checkIfExistsDuplicateCMPNum();
+//        checkIfExistsWrongNumberOfFields();
+//
+//        checkIfExistsDuplicateCMPNum();
 
         checkIfExistsInvalidDate();
 
@@ -24,7 +24,8 @@ public class Main {
         if (ifExistsInvalidDate.size() == 0) {
             System.out.println("[Pass] No wrong date error is found!");
         } else {
-            System.out.println("[Alert] The following row(s) of data contains wrong date record:");
+            System.out.println(String.format("[Alert] The following %s row(s) of data contains wrong date record:",
+                    ifExistsInvalidDate.size()));
             for (String eachLine : ifExistsInvalidDate) {
                 System.out.println(eachLine);
             }
