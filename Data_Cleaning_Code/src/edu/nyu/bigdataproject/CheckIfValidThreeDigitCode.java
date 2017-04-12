@@ -25,7 +25,10 @@ public class CheckIfValidThreeDigitCode {
                 String offenseCode = nextLine[6];
                 String internalCode = nextLine[8];
                 boolean ifValidOffenseCode = judgeIfValidThreeDigitCode(offenseCode);
-                boolean ifValidInternalCode = judgeIfValidThreeDigitCode(offenseCode);
+                boolean ifValidInternalCode = judgeIfValidThreeDigitCode(internalCode);
+//                if (offenseCode.equals("101")) {
+//                    result.add(nextLine[0] + "," + offenseCode + "," + internalCode);
+//                }
                 if (!ifValidOffenseCode || !ifValidInternalCode) {
                     result.add(nextLine[0] + "," + offenseCode + "," + internalCode);
                 }
