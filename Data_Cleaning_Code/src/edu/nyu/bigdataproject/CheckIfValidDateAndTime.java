@@ -20,7 +20,7 @@ public class CheckIfValidDateAndTime {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             CSVReader csvReader = new CSVReader(reader, ',');
 
-            String [] nextLine = csvReader.readNext(); // read the header line
+            String[] nextLine = csvReader.readNext(); // read the header line
             while ((nextLine = csvReader.readNext()) != null) {
                 if (!ifThisRowIsValid(nextLine[1], nextLine[2], nextLine[3], nextLine[4])) {
                     result.add(nextLine[0] + "," + nextLine[1]
@@ -54,6 +54,8 @@ public class CheckIfValidDateAndTime {
         }
         if (ifHasStartDateAndTime && ifHasEndDateAndTime) {
             return (startDateAndTimeResult.date <= endDateAndTimeResult.date);
+        } else if (!ifHasStartDateAndTime && !ifHasEndDateAndTime) {
+            return false;
         }
         return true;
     }

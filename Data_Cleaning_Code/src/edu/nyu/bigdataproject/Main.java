@@ -17,6 +17,25 @@ public class Main {
 
         checkIfReportTimeValid();
 
+        checkIfValidClassificationCode();
+
+    }
+
+    private static void checkIfValidClassificationCode() {
+        System.out.println("\n[Report] Detecting if wrong three digit classification code records...");
+        List<String> ifExistsInvalidClassificationDate =
+                CheckIfValidThreeDigitCode.checkIfValidThreeDigitCode(FILE_PATH);
+        if (ifExistsInvalidClassificationDate.size() == 0) {
+            System.out.println("[Pass] No wrong three digit classification code error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "wrong three digit classification code record:",
+                            ifExistsInvalidClassificationDate.size()));
+            for (String eachLine : ifExistsInvalidClassificationDate) {
+                System.out.println(eachLine);
+            }
+        }
     }
 
     private static void checkIfReportTimeValid() {

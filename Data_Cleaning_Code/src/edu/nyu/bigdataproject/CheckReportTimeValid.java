@@ -19,7 +19,7 @@ public class CheckReportTimeValid {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             CSVReader csvReader = new CSVReader(reader, ',');
 
-            String [] nextLine = csvReader.readNext(); // read the header line
+            String[] nextLine = csvReader.readNext(); // read the header line
             while ((nextLine = csvReader.readNext()) != null) {
                 if (!ifThisReportDateIsValid(nextLine[5])) {
                     result.add(nextLine[0] + "," + nextLine[5]);
