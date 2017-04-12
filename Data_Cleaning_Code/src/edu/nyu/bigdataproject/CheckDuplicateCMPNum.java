@@ -21,7 +21,6 @@ public class CheckDuplicateCMPNum {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             CSVReader csvReader = new CSVReader(reader, ',');
 
-
             String [] nextLine;
             while ((nextLine = csvReader.readNext()) != null) {
                 // nextLine[] is an array of values from the line

@@ -13,7 +13,22 @@ public class Main {
 
         checkIfExistsDuplicateCMPNum();
 
+        checkIfExistsInvalidDate();
 
+
+    }
+
+    private static void checkIfExistsInvalidDate() {
+        System.out.println("\n[Report] Detecting if exists wrong date records...");
+        List<String> ifExistsInvalidDate = CheckIfValidDateAndTime.checkIfValidDateAndTime(FILE_PATH);
+        if (ifExistsInvalidDate.size() == 0) {
+            System.out.println("[Pass] No wrong date error is found!");
+        } else {
+            System.out.println("[Alert] The following row(s) of data contains wrong date record:");
+            for (String eachLine : ifExistsInvalidDate) {
+                System.out.println(eachLine);
+            }
+        }
     }
 
     private static void checkIfExistsDuplicateCMPNum() {
