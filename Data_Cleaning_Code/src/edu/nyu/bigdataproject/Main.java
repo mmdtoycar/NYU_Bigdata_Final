@@ -21,8 +21,31 @@ public class Main {
 //
 //        checkIfExistsWrongCodesMapping();
 //
-        checkIfExistsWrongOffenseCodeMapping();
+//        checkIfExistsWrongOffenseCodeMapping();
 
+        checkIfExistsWrongPDCodeMapping();
+
+    }
+
+    private static void checkIfExistsWrongPDCodeMapping() {
+        System.out.println("\n[Report] Detecting if wrong PD code mapping records...");
+        List<String> ifExistsWrongPDCodesMappingProblem =
+                CheckPDCodeMapping.checkPDCodeMappingProblem(FILE_PATH);
+        if (ifExistsWrongPDCodesMappingProblem.size() == 0) {
+            System.out.println("[Pass] No wrong PD code mapping error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "wrong PD code mapping record:",
+                            ifExistsWrongPDCodesMappingProblem.size()));
+            for (String eachLine : ifExistsWrongPDCodesMappingProblem) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "wrong PD code mapping record:",
+                            ifExistsWrongPDCodesMappingProblem.size()));
+        }
     }
 
     private static void checkIfExistsWrongOffenseCodeMapping() {
