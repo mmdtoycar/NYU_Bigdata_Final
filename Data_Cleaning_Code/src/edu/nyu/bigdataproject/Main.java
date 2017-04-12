@@ -9,13 +9,29 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
 
-//        checkIfExistsWrongNumberOfFields();
-//
-//        checkIfExistsDuplicateCMPNum();
+        checkIfExistsWrongNumberOfFields();
+
+        checkIfExistsDuplicateCMPNum();
 
         checkIfExistsInvalidDate();
 
+        checkIfReportTimeValid();
 
+    }
+
+    private static void checkIfReportTimeValid() {
+        System.out.println("\n[Report] Detecting if wrong report date records...");
+        List<String> ifExistsInvalidReportDate = CheckReportTimeValid.checkReportTimeValid(FILE_PATH);
+        if (ifExistsInvalidReportDate.size() == 0) {
+            System.out.println("[Pass] No wrong report date error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains wrong report date record:",
+                            ifExistsInvalidReportDate.size()));
+            for (String eachLine : ifExistsInvalidReportDate) {
+                System.out.println(eachLine);
+            }
+        }
     }
 
     private static void checkIfExistsInvalidDate() {
