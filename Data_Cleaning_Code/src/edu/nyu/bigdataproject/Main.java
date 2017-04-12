@@ -19,6 +19,25 @@ public class Main {
 
         checkIfValidClassificationCode();
 
+        checkIfExistsWrongCodesMapping();
+
+    }
+
+    private static void checkIfExistsWrongCodesMapping() {
+        System.out.println("\n[Report] Detecting if wrong code mapping records...");
+        List<String> ifExistsWrongCodesMappingProblem =
+                CheckClassficationCodeMappingProblem.checkAnyCodeMappingProblem(FILE_PATH);
+        if (ifExistsWrongCodesMappingProblem.size() == 0) {
+            System.out.println("[Pass] No wrong code mapping error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "wrong code mapping record:",
+                            ifExistsWrongCodesMappingProblem.size()));
+            for (String eachLine : ifExistsWrongCodesMappingProblem) {
+                System.out.println(eachLine);
+            }
+        }
     }
 
     private static void checkIfValidClassificationCode() {

@@ -8,3 +8,5 @@
 
 5. 4574 rows of data missing three digit internal classification code. 
 	These 4574 rows of data contains all the offense classification code of "101"(MURDER & NON-NEGL. MANSLAUGHTER).
+
+6. All offense code and internal code has correct mapping relationship.

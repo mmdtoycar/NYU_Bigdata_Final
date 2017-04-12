@@ -1,5 +1,7 @@
 package edu.nyu.bigdataproject;
 
+import edu.nyu.bigdataproject.helper.CodeUtils;
+
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
@@ -12,7 +14,6 @@ import java.util.List;
  */
 public class CheckIfValidThreeDigitCode {
 
-    private static final int LENGTH_OF_CODE = 3;
 
     public static List<String> checkIfValidThreeDigitCode(String fileName) {
         List<String> result = new ArrayList<>();
@@ -21,11 +22,10 @@ public class CheckIfValidThreeDigitCode {
             CSVReader csvReader = new CSVReader(reader, ',');
             String[] nextLine = csvReader.readNext(); // read the header line
             while ((nextLine = csvReader.readNext()) != null) {
-                // nextLine[] is an array of values from the line
                 String offenseCode = nextLine[6];
                 String internalCode = nextLine[8];
-                boolean ifValidOffenseCode = judgeIfValidThreeDigitCode(offenseCode);
-                boolean ifValidInternalCode = judgeIfValidThreeDigitCode(internalCode);
+                boolean ifValidOffenseCode = CodeUtils.judgeIfValidThreeDigitCode(offenseCode);
+                boolean ifValidInternalCode = CodeUtils.judgeIfValidThreeDigitCode(internalCode);
 //                if (offenseCode.equals("101")) {
 //                    result.add(nextLine[0] + "," + offenseCode + "," + internalCode);
 //                }
@@ -38,18 +38,5 @@ public class CheckIfValidThreeDigitCode {
             ex.printStackTrace();
         }
         return result;
-    }
-
-    private static boolean judgeIfValidThreeDigitCode(String code) {
-        if (code == null || code.length() != LENGTH_OF_CODE) {
-            return false;
-        }
-        for (int i = 0; i < LENGTH_OF_CODE; i++) {
-            char thisChar = code.charAt(i);
-            if (thisChar < '0' || thisChar > '9') {
-                return false;
-            }
-        }
-        return true;
     }
 }
