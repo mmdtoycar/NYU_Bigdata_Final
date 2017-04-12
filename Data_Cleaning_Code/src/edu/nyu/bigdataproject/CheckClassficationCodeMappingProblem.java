@@ -17,7 +17,7 @@ import java.util.Map;
 public class CheckClassficationCodeMappingProblem {
 
     public static List<String> checkAnyCodeMappingProblem(String fileName) {
-        Map<String, String> codesMap = new HashMap<>();
+        Map<String, Map<String, Integer>> codesMap = new HashMap<>();
         List<String> result = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -28,20 +28,37 @@ public class CheckClassficationCodeMappingProblem {
                 String internalCode = nextLine[8];
                 boolean ifValidOffenseCode = CodeUtils.judgeIfValidThreeDigitCode(offenseCode);
                 boolean ifValidInternalCode = CodeUtils.judgeIfValidThreeDigitCode(internalCode);
-                if (!ifValidOffenseCode || !ifValidInternalCode) {
-                    if (codesMap.containsKey(offenseCode)) {
-                        if (codesMap.get(offenseCode).equals(internalCode)) {
-                            continue;
-                        }
-                        result.add(nextLine[0] + "," + offenseCode + "," + internalCode);
-                    } else {
-                        codesMap.put(offenseCode, internalCode);
+                if (ifValidOffenseCode && ifValidInternalCode) {
+                    if (!codesMap.containsKey(internalCode)) {
+                        codesMap.put(internalCode, new HashMap<>());
+                    }
+                    if (codesMap.get(internalCode).containsKey(offenseCode)) {
+                        int appearTime = codesMap.get(internalCode).get(offenseCode);
+                        codesMap.get(internalCode).put(offenseCode, appearTime + 1);
+                    } else{
+                        codesMap.get(internalCode).put(offenseCode, 1);
                     }
                 }
             }
             csvReader.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+
+        for (String internalKey : codesMap.keySet()) {
+            if (codesMap.get(internalKey).size() == 1) {
+                continue;
+            } else {
+                StringBuffer sb = new StringBuffer();
+                sb.append(internalKey + ":");
+                for (String mappingKey : codesMap.get(internalKey).keySet()) {
+                    int tempNum = codesMap.get(internalKey).get(mappingKey);
+                    sb.append(String.format("(%s, %d), ", mappingKey, tempNum));
+                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.deleteCharAt(sb.length() - 1);
+                result.add(sb.toString());
+            }
         }
         return result;
     }

@@ -8,17 +8,17 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-
-        checkIfExistsWrongNumberOfFields();
-
-        checkIfExistsDuplicateCMPNum();
-
-        checkIfExistsInvalidDate();
-
-        checkIfReportTimeValid();
-
-        checkIfValidClassificationCode();
-
+//
+//        checkIfExistsWrongNumberOfFields();
+//
+//        checkIfExistsDuplicateCMPNum();
+//
+//        checkIfExistsInvalidDate();
+//
+//        checkIfReportTimeValid();
+//
+//        checkIfValidClassificationCode();
+//
         checkIfExistsWrongCodesMapping();
 
     }
@@ -37,6 +37,10 @@ public class Main {
             for (String eachLine : ifExistsWrongCodesMappingProblem) {
                 System.out.println(eachLine);
             }
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "wrong code mapping record:",
+                            ifExistsWrongCodesMappingProblem.size()));
         }
     }
 
