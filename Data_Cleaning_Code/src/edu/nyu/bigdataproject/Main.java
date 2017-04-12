@@ -8,20 +8,20 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-//
-//        checkIfExistsWrongNumberOfFields();
-//
-//        checkIfExistsDuplicateCMPNum();
-//
-//        checkIfExistsInvalidDate();
-//
-//        checkIfReportTimeValid();
-//
-//        checkIfValidClassificationCode();
-//
-//        checkIfExistsWrongCodesMapping();
-//
-//        checkIfExistsWrongOffenseCodeMapping();
+
+        checkIfExistsWrongNumberOfFields();
+
+        checkIfExistsDuplicateCMPNum();
+
+        checkIfExistsInvalidDate();
+
+        checkIfReportTimeValid();
+
+        checkIfValidClassificationCode();
+
+        checkIfExistsWrongCodesMapping();
+
+        checkIfExistsWrongOffenseCodeMapping();
 
         checkIfExistsWrongPDCodeMapping();
 

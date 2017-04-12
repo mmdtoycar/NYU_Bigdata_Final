@@ -53,6 +53,18 @@ public class CheckOffenseCodeMapping {
                 sb.deleteCharAt(sb.length() - 1);
                 sb.deleteCharAt(sb.length() - 1);
                 result.add(sb.toString());
+            } else {
+                String detail =  null;
+                for (String detailString : codesMap.get(offenseKey).keySet()) {
+                    detail = detailString;
+                }
+                if (detail != null && detail.equals("")) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(offenseKey).append(":");
+                    int tempNum = codesMap.get(offenseKey).get(detail);
+                    sb.append(String.format("(%s, %d)", detail, tempNum));
+                    result.add(sb.toString());
+                }
             }
         }
         return result;

@@ -43,17 +43,29 @@ public class CheckPDCodeMapping {
             ex.printStackTrace();
         }
 
-        for (String offenseKey : codesMap.keySet()) {
-            if (codesMap.get(offenseKey).size() != 1) {
+        for (String PDKey : codesMap.keySet()) {
+            if (codesMap.get(PDKey).size() != 1) {
                 StringBuilder sb = new StringBuilder();
-                sb.append(offenseKey).append(":");
-                for (String mappingKey : codesMap.get(offenseKey).keySet()) {
-                    int tempNum = codesMap.get(offenseKey).get(mappingKey);
+                sb.append(PDKey).append(":");
+                for (String mappingKey : codesMap.get(PDKey).keySet()) {
+                    int tempNum = codesMap.get(PDKey).get(mappingKey);
                     sb.append(String.format("(%s, %d), ", mappingKey, tempNum));
                 }
                 sb.deleteCharAt(sb.length() - 1);
                 sb.deleteCharAt(sb.length() - 1);
                 result.add(sb.toString());
+            } else {
+                String detail =  null;
+                for (String detailString : codesMap.get(PDKey).keySet()) {
+                    detail = detailString;
+                }
+                if (detail != null && detail.equals("")) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(PDKey).append(":");
+                    int tempNum = codesMap.get(PDKey).get(detail);
+                    sb.append(String.format("(%s, %d)", detail, tempNum));
+                    result.add(sb.toString());
+                }
             }
         }
         return result;
