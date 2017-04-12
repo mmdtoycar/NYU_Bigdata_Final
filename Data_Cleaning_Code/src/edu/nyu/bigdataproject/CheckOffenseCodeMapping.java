@@ -2,7 +2,6 @@ package edu.nyu.bigdataproject;
 
 import com.opencsv.CSVReader;
 import edu.nyu.bigdataproject.helper.CodeUtils;
-import edu.nyu.bigdataproject.helper.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +15,7 @@ import java.util.Map;
  */
 public class CheckOffenseCodeMapping {
     public static List<String> checkOffenseCodeMappingProblem(String fileName) {
-        Map<String, String> codesMap = new HashMap<>();
+        Map<String, Map<String, Integer>> codesMap = new HashMap<>();
         List<String> result = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -26,22 +25,35 @@ public class CheckOffenseCodeMapping {
                 String offenseCode = nextLine[6];
                 String offenseDetail = nextLine[7];
                 boolean ifValidOffenseCode = CodeUtils.judgeIfValidThreeDigitCode(offenseCode);
-                boolean ifValidOffenseDetail = StringUtils.checkIfValidString(offenseDetail);
-
-//                if (!ifValidOffenseCode || !ifValidInternalCode) {
-//                    if (codesMap.containsKey(offenseCode)) {
-//                        if (codesMap.get(offenseCode).equals(internalCode)) {
-//                            continue;
-//                        }
-//                        result.add(nextLine[0] + "," + offenseCode + "," + internalCode);
-//                    } else {
-//                        codesMap.put(offenseCode, internalCode);
-//                    }
-//                }
+                if (ifValidOffenseCode) {
+                    if (!codesMap.containsKey(offenseCode)) {
+                        codesMap.put(offenseCode, new HashMap<>());
+                    }
+                    if (codesMap.get(offenseCode).containsKey(offenseDetail)) {
+                        int appearTime = codesMap.get(offenseCode).get(offenseDetail);
+                        codesMap.get(offenseCode).put(offenseDetail, appearTime + 1);
+                    } else{
+                        codesMap.get(offenseCode).put(offenseDetail, 1);
+                    }
+                }
             }
             csvReader.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+
+        for (String offenseKey : codesMap.keySet()) {
+            if (codesMap.get(offenseKey).size() != 1) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(offenseKey).append(":");
+                for (String mappingKey : codesMap.get(offenseKey).keySet()) {
+                    int tempNum = codesMap.get(offenseKey).get(mappingKey);
+                    sb.append(String.format("(%s, %d), ", mappingKey, tempNum));
+                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.deleteCharAt(sb.length() - 1);
+                result.add(sb.toString());
+            }
         }
         return result;
     }

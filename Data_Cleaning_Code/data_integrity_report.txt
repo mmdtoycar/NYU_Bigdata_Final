@@ -10,3 +10,5 @@
 	These 4574 rows of data contains all the offense classification code of "101"(MURDER & NON-NEGL. MANSLAUGHTER).
 
 6. 53 offense code and internal code mapping relationship may have problem.
+
+7. 43 offense code and offense detail mapping relationship may have problem.

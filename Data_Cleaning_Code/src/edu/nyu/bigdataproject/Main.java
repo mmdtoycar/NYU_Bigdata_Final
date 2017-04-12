@@ -19,8 +19,31 @@ public class Main {
 //
 //        checkIfValidClassificationCode();
 //
-        checkIfExistsWrongCodesMapping();
+//        checkIfExistsWrongCodesMapping();
+//
+        checkIfExistsWrongOffenseCodeMapping();
 
+    }
+
+    private static void checkIfExistsWrongOffenseCodeMapping() {
+        System.out.println("\n[Report] Detecting if wrong offense code mapping records...");
+        List<String> ifExistsWrongOffenseCodesMappingProblem =
+                CheckOffenseCodeMapping.checkOffenseCodeMappingProblem(FILE_PATH);
+        if (ifExistsWrongOffenseCodesMappingProblem.size() == 0) {
+            System.out.println("[Pass] No wrong offense code mapping error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "wrong offense code mapping record:",
+                            ifExistsWrongOffenseCodesMappingProblem.size()));
+            for (String eachLine : ifExistsWrongOffenseCodesMappingProblem) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "wrong offense code mapping record:",
+                            ifExistsWrongOffenseCodesMappingProblem.size()));
+        }
     }
 
     private static void checkIfExistsWrongCodesMapping() {
@@ -38,7 +61,7 @@ public class Main {
                 System.out.println(eachLine);
             }
             System.out.println(
-                    String.format("[Alert] The following %s row(s) of data contains " +
+                    String.format("[Alert] The above %s row(s) of data contains " +
                                     "wrong code mapping record:",
                             ifExistsWrongCodesMappingProblem.size()));
         }
