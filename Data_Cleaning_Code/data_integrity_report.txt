@@ -18,3 +18,5 @@
 9. 7 rows of data contains empty crime completion record.
 
 10. No unexpected level of offense is found.
+
+11. All the jurisdiction mapping info(total: 25) are found.

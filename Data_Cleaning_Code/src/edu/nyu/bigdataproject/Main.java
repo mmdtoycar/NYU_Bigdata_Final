@@ -34,6 +34,22 @@ public class Main {
 
         checkIfUnexpectedLevelOfOffense();
 
+        checkJurisdictionDistribution();
+
+    }
+
+    private static void checkJurisdictionDistribution() {
+        System.out.println("\n[Report] Showing all jurisdiction mapping info...");
+        List<String> allJurisdictionMappings =
+                CheckJurisdictionDistribution.checkAllJurisdictionDistribution(FILE_PATH);
+
+        System.out.println(String.format("[Result] Here are all the jurisdiction mapping info(total: %s):",
+                allJurisdictionMappings.size()));
+        for (String eachLine : allJurisdictionMappings) {
+            System.out.println(eachLine);
+        }
+        System.out.println(String.format("[Result] Above are all the jurisdiction mapping info(total: %s).",
+                allJurisdictionMappings.size()));
     }
 
     private static void checkIfUnexpectedLevelOfOffense() {
