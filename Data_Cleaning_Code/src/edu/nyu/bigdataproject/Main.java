@@ -11,6 +11,9 @@ public class Main {
 
     private static final List<String> LEVEL_OF_OFFENSE_RANGE = Arrays.asList("FELONY", "MISDEMEANOR", "VIOLATION");
 
+    private static final List<String> LOCATION_OF_OCCURRENCE =
+            Arrays.asList("INSIDE", "OUTSIDE", "FRONT OF", "REAR OF", "OPPOSITE OF", "");
+
     public static void main(String[] args) {
         // write your code here
 
@@ -41,7 +44,30 @@ public class Main {
         checkIfExistsInvalidPrecinctCode();
 
         checkIfExistsConflictPrecinctBoroughMapping();
+        
+        checkIfUnexpectedLocationOfOccurrence();
 
+    }
+
+    private static void checkIfUnexpectedLocationOfOccurrence() {
+        System.out.println("\n[Report] Detecting if unexpected location of occurrence records...");
+        List<String> ifUnexpectedLocationOfOccurrence =
+                CheckLocationOfOccurrenceRange.checkLocationOfOccurrenceRange(FILE_PATH, LOCATION_OF_OCCURRENCE);
+        if (ifUnexpectedLocationOfOccurrence.size() == 0) {
+            System.out.println("[Pass] No unexpected location of occurrence is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "unexpected location of occurrence:",
+                            ifUnexpectedLocationOfOccurrence.size()));
+            for (String eachLine : ifUnexpectedLocationOfOccurrence) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "unexpected location of occurrence",
+                            ifUnexpectedLocationOfOccurrence.size()));
+        }
     }
 
     private static void checkIfExistsConflictPrecinctBoroughMapping() {
