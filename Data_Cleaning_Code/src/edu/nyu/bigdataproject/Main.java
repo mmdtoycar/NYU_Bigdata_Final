@@ -38,6 +38,29 @@ public class Main {
 
         checkBoroughDistribution();
 
+        checkIfExistsInvalidPrecinctCode();
+
+    }
+
+    private static void checkIfExistsInvalidPrecinctCode() {
+        System.out.println("\n[Report] Detecting any invalid precinct code records...");
+        List<String> ifExistsInvalidPrecinctCode =
+                CheckIfValidPrecinctCode.checkIfValidPrecinctCode(FILE_PATH);
+        if (ifExistsInvalidPrecinctCode.size() == 0) {
+            System.out.println("[Pass] No invalid precinct code error is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "invalid precinct code record:",
+                            ifExistsInvalidPrecinctCode.size()));
+            for (String eachLine : ifExistsInvalidPrecinctCode) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "invalid precinct code record.",
+                            ifExistsInvalidPrecinctCode.size()));
+        }
     }
 
     private static void checkBoroughDistribution() {
@@ -174,30 +197,30 @@ public class Main {
     }
 
     private static void checkIfValidClassificationCode() {
-        System.out.println("\n[Report] Detecting if wrong three digit classification code records...");
-        List<String> ifExistsInvalidClassificationDate =
+        System.out.println("\n[Report] Detecting any invalid three digit classification code records...");
+        List<String> ifExistsInvalidClassificationCode =
                 CheckIfValidThreeDigitCode.checkIfValidThreeDigitCode(FILE_PATH);
-        if (ifExistsInvalidClassificationDate.size() == 0) {
-            System.out.println("[Pass] No wrong three digit classification code error is found!");
+        if (ifExistsInvalidClassificationCode.size() == 0) {
+            System.out.println("[Pass] No invalid three digit classification code error is found!");
         } else {
             System.out.println(
                     String.format("[Alert] The following %s row(s) of data contains " +
-                                    "wrong three digit classification code record:",
-                            ifExistsInvalidClassificationDate.size()));
-            for (String eachLine : ifExistsInvalidClassificationDate) {
+                                    "invalid three digit classification code record:",
+                            ifExistsInvalidClassificationCode.size()));
+            for (String eachLine : ifExistsInvalidClassificationCode) {
                 System.out.println(eachLine);
             }
         }
     }
 
     private static void checkIfReportTimeValid() {
-        System.out.println("\n[Report] Detecting if wrong report date records...");
+        System.out.println("\n[Report] Detecting if invalid report date records...");
         List<String> ifExistsInvalidReportDate = CheckReportTimeValid.checkReportTimeValid(FILE_PATH);
         if (ifExistsInvalidReportDate.size() == 0) {
-            System.out.println("[Pass] No wrong report date error is found!");
+            System.out.println("[Pass] No invalid report date error is found!");
         } else {
             System.out.println(
-                    String.format("[Alert] The following %s row(s) of data contains wrong report date record:",
+                    String.format("[Alert] The following %s row(s) of data contains invalid report date record:",
                             ifExistsInvalidReportDate.size()));
             for (String eachLine : ifExistsInvalidReportDate) {
                 System.out.println(eachLine);
@@ -206,12 +229,12 @@ public class Main {
     }
 
     private static void checkIfExistsInvalidDate() {
-        System.out.println("\n[Report] Detecting if exists wrong date records...");
+        System.out.println("\n[Report] Detecting if exists invalid date records...");
         List<String> ifExistsInvalidDate = CheckIfValidDateAndTime.checkIfValidDateAndTime(FILE_PATH);
         if (ifExistsInvalidDate.size() == 0) {
-            System.out.println("[Pass] No wrong date error is found!");
+            System.out.println("[Pass] No invalid date error is found!");
         } else {
-            System.out.println(String.format("[Alert] The following %s row(s) of data contains wrong date record:",
+            System.out.println(String.format("[Alert] The following %s row(s) of data contains invalid date record:",
                     ifExistsInvalidDate.size()));
             for (String eachLine : ifExistsInvalidDate) {
                 System.out.println(eachLine);

@@ -22,3 +22,5 @@
 11. All the jurisdiction mapping info(total: 25) are found.
 
 12. 463 rows of data has no borough record.
+
+13. 390 rows of data has no precinct record.

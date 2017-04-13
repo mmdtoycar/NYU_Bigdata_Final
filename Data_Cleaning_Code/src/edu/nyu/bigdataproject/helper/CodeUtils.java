@@ -19,4 +19,17 @@ public class CodeUtils {
         }
         return true;
     }
+
+    public static boolean judgeIfValidNumber(String code) {
+        if (code == null || code.length() == 0) {
+            return false;
+        }
+        for (int i = 0; i < code.length(); i++) {
+            char thisChar = code.charAt(i);
+            if (thisChar < '0' || thisChar > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
 }
