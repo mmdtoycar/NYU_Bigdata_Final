@@ -44,9 +44,25 @@ public class Main {
         checkIfExistsInvalidPrecinctCode();
 
         checkIfExistsConflictPrecinctBoroughMapping();
-        
+
         checkIfUnexpectedLocationOfOccurrence();
 
+        checkDescriptionOfPremiseDistribution();
+
+    }
+
+    private static void checkDescriptionOfPremiseDistribution() {
+        System.out.println("\n[Report] Showing all description of premise distribution info...");
+        List<String> allDescriptionOfPremiseDistribution =
+                CheckDescriptionOfPremiseDistribution.checkAllDescriptionOfPremiseDistribution(FILE_PATH);
+
+        System.out.println(String.format("[Result] Here are all description of premise distribution info(total: %s):",
+                allDescriptionOfPremiseDistribution.size()));
+        for (String eachLine : allDescriptionOfPremiseDistribution) {
+            System.out.println(eachLine);
+        }
+        System.out.println(String.format("[Result] Above are all description of premise distribution info(total: %s).",
+                allDescriptionOfPremiseDistribution.size()));
     }
 
     private static void checkIfUnexpectedLocationOfOccurrence() {

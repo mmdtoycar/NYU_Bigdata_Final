@@ -28,3 +28,5 @@
 14. 13 rows of data contains conflicting precinct-borough mapping record.
 
 15. No unexpected location of occurrence is found!
+
+16. All description of premise distribution info(total: 71) is found.
