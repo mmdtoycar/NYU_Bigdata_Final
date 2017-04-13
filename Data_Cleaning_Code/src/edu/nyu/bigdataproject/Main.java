@@ -36,6 +36,22 @@ public class Main {
 
         checkJurisdictionDistribution();
 
+        checkBoroughDistribution();
+
+    }
+
+    private static void checkBoroughDistribution() {
+        System.out.println("\n[Report] Showing all borough mapping info...");
+        List<String> allBoroughDistributions =
+                CheckBoroughDistribution.checkAllBoroughDistribution(FILE_PATH);
+
+        System.out.println(String.format("[Result] Here are all the borough mapping info(total: %s):",
+                allBoroughDistributions.size()));
+        for (String eachLine : allBoroughDistributions) {
+            System.out.println(eachLine);
+        }
+        System.out.println(String.format("[Result] Above are all the borough mapping info(total: %s).",
+                allBoroughDistributions.size()));
     }
 
     private static void checkJurisdictionDistribution() {

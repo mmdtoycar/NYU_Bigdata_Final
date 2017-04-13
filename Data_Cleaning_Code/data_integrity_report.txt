@@ -20,3 +20,5 @@
 10. No unexpected level of offense is found.
 
 11. All the jurisdiction mapping info(total: 25) are found.
+
+12. 463 rows of data has no borough record.
