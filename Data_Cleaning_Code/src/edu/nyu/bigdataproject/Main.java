@@ -40,6 +40,29 @@ public class Main {
 
         checkIfExistsInvalidPrecinctCode();
 
+        checkIfExistsConflictPrecinctBoroughMapping();
+
+    }
+
+    private static void checkIfExistsConflictPrecinctBoroughMapping() {
+        System.out.println("\n[Report] Detecting any conflicting precinct-borough mapping records...");
+        List<String> ifExistsConflictPrecinctBoroughMapping =
+                CheckPrecinctBoroughMappingProblem.checkAnyPrecinctBoroughMappingProblem(FILE_PATH);
+        if (ifExistsConflictPrecinctBoroughMapping.size() == 0) {
+            System.out.println("[Pass] No conflicting precinct-borough mapping is found!");
+        } else {
+            System.out.println(
+                    String.format("[Alert] The following %s row(s) of data contains " +
+                                    "conflicting precinct-borough mapping record:",
+                            ifExistsConflictPrecinctBoroughMapping.size()));
+            for (String eachLine : ifExistsConflictPrecinctBoroughMapping) {
+                System.out.println(eachLine);
+            }
+            System.out.println(
+                    String.format("[Alert] The above %s row(s) of data contains " +
+                                    "conflicting precinct-borough mapping record",
+                            ifExistsConflictPrecinctBoroughMapping.size()));
+        }
     }
 
     private static void checkIfExistsInvalidPrecinctCode() {

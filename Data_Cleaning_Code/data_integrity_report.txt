@@ -24,3 +24,5 @@
 12. 463 rows of data has no borough record.
 
 13. 390 rows of data has no precinct record.
+
+14. 13 rows of data contains conflicting precinct-borough mapping record.
