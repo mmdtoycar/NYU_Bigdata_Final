@@ -53,5 +53,9 @@ if __name__ == "__main__":
     element = element.map(process) \
             .sortByKey() \
             .map(output)
+<<<<<<< HEAD
     element.coalesce(1).saveAsTextFile("CMPLNT_NUM.out")
+=======
+    element.saveAsTextFile("CMPLNT_NUM.out")
+>>>>>>> ced2e4ff6122660128d139d821d4f2539a38e01b
     sc.stop()
