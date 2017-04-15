@@ -32,7 +32,7 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[0].strip(), x[1].strip())) 
+    counts = lines.map(lambda x: (x[0].strip(), x[3].strip())) 
     # store the internal result
     element = counts
     counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
