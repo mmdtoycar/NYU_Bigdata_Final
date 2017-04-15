@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import re
 import sys
 from operator import add
 from pyspark import SparkContext
@@ -53,5 +54,5 @@ if __name__ == "__main__":
     element = element.map(process) \
             .sortByKey() \
             .map(output)
-    element.coalesce(1).saveAsTextFile("CMPLNT_NUM.out")
+    element.saveAsTextFile("CMPLNT_NUM.out")
     sc.stop()
