@@ -10,6 +10,7 @@ def output(Pair):
 
 def ifIsNotValidNumberString(str):
     return not str.isdigit()
+
 def checkBaseType(x):
     if x.isdigit():
         return "INT"
@@ -17,6 +18,7 @@ def checkBaseType(x):
         return "DECIMAL"
     else:
         return "TEXT"
+
 def process(x):
     baseType = checkBaseType(x[0])
     semanticType = "Complaint Num"
@@ -24,6 +26,7 @@ def process(x):
         return (x[0], "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x[0], "{}\t{}\tInvalid".format(baseType, semanticType))
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
