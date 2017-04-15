@@ -14,7 +14,7 @@ def ifIsNotValidNumberString(str):
 def checkBaseType(x):
     if x.isdigit():
         return "INT"
-    elif x.isdecimal():
+    elif unicode(x).isdecimal():
         return "DECIMAL"
     else:
         return "TEXT"
@@ -22,7 +22,9 @@ def checkBaseType(x):
 def process(x):
     baseType = checkBaseType(x[0])
     semanticType = "Complaint Num"
-    if(x[0] not in counts):
+    if x[0] == "":
+        return (x[0], "{}\t{}\tNULL".format(baseType, semanticType))
+    elif(x[0] not in counts):
         return (x[0], "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x[0], "{}\t{}\tInvalid".format(baseType, semanticType))
@@ -33,16 +35,20 @@ if __name__ == "__main__":
         exit(-1)
     sc = SparkContext()
     lines = sc.textFile(sys.argv[1], 1)
+    #extract header
+    header = lines.first()
+    lines = lines.filter(lambda line: line != header)
+
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[0], 1)) 
+    counts = lines.map(lambda x: (x[0].strip(), 1)) 
     # store the internal result
     element = counts
     counts = counts.reduceByKey(add) \
-            .filter(lambda x : (x[1] > 1) or (ifIsNotValidNumberString(x[0]))) \
+            .filter(lambda x : (ifIsNotValidNumberString(x[0]))) \
             .map(lambda x: x[0]) \
             .collect()
     element = element.map(process) \
             .sortByKey() \
             .map(output)
-    element.saveAsTextFile("DuplicateCMPNumber.out")
+    element.saveAsTextFile("CMPLNT_NUM.out")
     sc.stop()
