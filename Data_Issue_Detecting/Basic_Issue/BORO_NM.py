@@ -21,14 +21,14 @@ def checkBaseType(x):
         return "TEXT"
 def process(x):
     baseType = checkBaseType(x)
-    semanticType = "Jurisdiction name"
+    semanticType = "Name of borough"
     if x == "":
         return (x, "{}\t{}\tNULL".format(baseType, semanticType))
-    elif re.match(r"^.{5,30}$", x) :
+    elif x.upper() in area:
         return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x, "{}\t{}\tInvalid".format(baseType, semanticType))
-area = ("MANHATTAN", "")
+area = ("MANHATTAN", "BRONX", "BROOKLYN", "QUEENS", "STATEN ISLAND")
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -42,5 +42,5 @@ if __name__ == "__main__":
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("BRONX.out")
+    counts.coalesce(1).saveAsTextFile("BORO_NM.out")
     sc.stop()
