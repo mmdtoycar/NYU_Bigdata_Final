@@ -1,3 +1,5 @@
+import re
+
 def checkBaseType(x):
     if x.isdigit():
         return "INT"
