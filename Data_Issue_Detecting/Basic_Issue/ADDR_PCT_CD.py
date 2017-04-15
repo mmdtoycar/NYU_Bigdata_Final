@@ -9,15 +9,12 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
-
 def process(x):
     baseType = checkBaseType(x)
-    semanticType = "Jurisdiction name"
+    semanticType = "precinct number"
     if x == "":
         return (x, "{}\t{}\tNULL".format(baseType, semanticType))
-    elif re.match(r"^.{5,30}$", x) :
+    elif re.match(r"^\d{1-3}$", x) :
         return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x, "{}\t{}\tInvalid".format(baseType, semanticType))
@@ -32,9 +29,9 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: x[12].strip()) \
+    counts = lines.map(lambda x: x[14].strip()) \
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("N_Y_POLICE_DEPT.out")
+    counts.coalesce(1).saveAsTextFile("ADDR_PCT_CD.out")
     sc.stop()

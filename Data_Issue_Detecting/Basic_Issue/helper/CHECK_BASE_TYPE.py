@@ -10,3 +10,15 @@ def checkBaseType(x):
         return "DATETIME"
     else:
         return "TEXT"
+def isIntOrNot(x):
+	try:
+		int(x)
+		return True
+	except:
+		return False
+def isFloatOrNot(x):
+    try:
+        float(x)
+        return True
+    except:
+        return False

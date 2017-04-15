@@ -14,13 +14,11 @@ def ifIsNotValidNumberString(str):
 
 def process(x):
     baseType = checkBaseType(x)
-    semanticType = "Jurisdiction name"
+    semanticType = "NYC park name"
     if x == "":
         return (x, "{}\t{}\tNULL".format(baseType, semanticType))
-    elif re.match(r"^.{5,30}$", x) :
-        return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
-        return (x, "{}\t{}\tInvalid".format(baseType, semanticType))
+        return (x, "{}\t{}\tValid".format(baseType, semanticType))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -32,9 +30,9 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: x[12].strip()) \
+    counts = lines.map(lambda x: x[17].strip()) \
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("N_Y_POLICE_DEPT.out")
+    counts.coalesce(1).saveAsTextFile("PREM_TYP_DESC.out")
     sc.stop()

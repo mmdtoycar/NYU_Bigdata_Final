@@ -14,14 +14,14 @@ def ifIsNotValidNumberString(str):
 
 def process(x):
     baseType = checkBaseType(x)
-    semanticType = "Jurisdiction name"
+    semanticType = "Specific location of occurrence"
     if x == "":
         return (x, "{}\t{}\tNULL".format(baseType, semanticType))
-    elif re.match(r"^.{5,30}$", x) :
+    elif x.upper() in location :
         return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x, "{}\t{}\tInvalid".format(baseType, semanticType))
-
+location = {"INSIDE", "OPPOSITE OF", "FRONT OF", "REAR OF"}
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -32,9 +32,9 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: x[12].strip()) \
+    counts = lines.map(lambda x: x[15].strip()) \
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("N_Y_POLICE_DEPT.out")
+    counts.coalesce(1).saveAsTextFile("LOC_OF_OCCUR_DESC.out")
     sc.stop()
