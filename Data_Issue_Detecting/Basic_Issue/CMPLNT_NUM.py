@@ -24,7 +24,7 @@ def checkBaseType(x):
 
 def process(x):
     baseType = checkBaseType(x[0])
-    semanticType = "Complaint Num"
+    semanticType = "Complaint_Num"
     if x[0] == "":
         return (x[0], "{}\t{}\tNULL".format(baseType, semanticType))
     elif(x[0] not in counts):
