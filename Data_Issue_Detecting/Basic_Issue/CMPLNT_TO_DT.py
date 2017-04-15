@@ -11,10 +11,9 @@ from helper.CHECK_VALID_DATE import ifIsNotValidDateString
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-
 def process(x):
     baseType = checkBaseType(x[1])
-    semanticType = "Complaint_Starting_Date"
+    semanticType = "Complaint_Ending_Date"
     if x[1] == "":
         return (x[1], "{}\t{}\tNULL".format(baseType, semanticType))
     elif(x[0] not in counts):
@@ -33,7 +32,7 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[0].strip(), x[1].strip())) 
+    counts = lines.map(lambda x: (x[0].strip(), x[3].strip())) 
     # store the internal result
     element = counts
     counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
@@ -42,5 +41,5 @@ if __name__ == "__main__":
     element = element.map(process) \
             .sortByKey() \
             .map(output)
-    element.saveAsTextFile("CMPLNT_FR_DT.out")
+    element.saveAsTextFile("CMPLNT_TO_DT.out")
     sc.stop()
