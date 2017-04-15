@@ -10,7 +10,20 @@ def output(Pair):
 
 def ifIsNotValidNumberString(str):
     return not str.isdigit()
-
+def checkBaseType(x):
+    if x.isdigit():
+        return "INT"
+    elif x.isdecimal():
+        return "DECIMAL"
+    else:
+        return "TEXT"
+def process(x):
+    baseType = checkBaseType(x[0])
+    semanticType = "Complaint Num"
+    if(x[0] not in counts):
+        return (x[0], "{}\t{}\tValid".format(baseType, semanticType))
+    else :
+        return (x[0], "{}\t{}\tInvalid".format(baseType, semanticType))
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -25,8 +38,7 @@ if __name__ == "__main__":
             .filter(lambda x : (x[1] > 1) or (ifIsNotValidNumberString(x[0]))) \
             .map(lambda x: x[0]) \
             .collect()
-    element = element.map(lambda x: (x[0], "INT\tComplaint Num\tValid") if x[0] not in counts
-                            else (x[0], "INT\tComplaint Num\tInvalid")) \
+    element = element.map(process) \
             .sortByKey() \
             .map(output)
     element.saveAsTextFile("DuplicateCMPNumber.out")
