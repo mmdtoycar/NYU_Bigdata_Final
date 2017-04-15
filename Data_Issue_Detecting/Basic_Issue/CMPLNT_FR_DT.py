@@ -11,7 +11,6 @@ from helper.CHECK_VALID_DATE import ifIsNotValidDateString
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-
 def process(x):
     baseType = checkBaseType(x[1])
     semanticType = "Complaint_Starting_Date"
@@ -36,7 +35,7 @@ if __name__ == "__main__":
     counts = lines.map(lambda x: (x[0].strip(), x[1].strip())) 
     # store the internal result
     element = counts
-    counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
+    counts = counts.filter(lambda x : (len(x[1]) != 0 and ifIsNotValidDateString(x[1]))) \
             .map(lambda x: x[0]) \
             .collect()
     element = element.map(process) \

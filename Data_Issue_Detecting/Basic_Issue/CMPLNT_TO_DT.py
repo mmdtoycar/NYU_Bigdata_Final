@@ -35,7 +35,7 @@ if __name__ == "__main__":
     counts = lines.map(lambda x: (x[0].strip(), x[3].strip())) 
     # store the internal result
     element = counts
-    counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
+    counts = counts.filter(lambda x : (len(x[1]) != 0 and ifIsNotValidDateString(x[1]))) \
             .map(lambda x: x[0]) \
             .collect()
     element = element.map(process) \
