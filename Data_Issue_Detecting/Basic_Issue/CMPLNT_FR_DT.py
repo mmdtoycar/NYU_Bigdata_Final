@@ -37,5 +37,5 @@ if __name__ == "__main__":
             .sortByKey() \
             .map(output)
 
-    counts.saveAsTextFile("CMPLNT_FR_DT.out")
+    counts.coalesce(1).saveAsTextFile("CMPLNT_FR_DT.out")
     sc.stop()
