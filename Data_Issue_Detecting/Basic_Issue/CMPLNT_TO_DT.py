@@ -46,5 +46,5 @@ if __name__ == "__main__":
     counts = lines.map(process) \
             .sortByKey() \
             .map(output)
-    counts.saveAsTextFile("CMPLNT_TO_DT.out")
+    counts.coalesce(1).saveAsTextFile("CMPLNT_TO_DT.out")
     sc.stop()

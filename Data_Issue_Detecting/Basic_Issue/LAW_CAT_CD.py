@@ -37,5 +37,5 @@ if __name__ == "__main__":
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.saveAsTextFile("LAW_CAT_CD.out")
+    counts.coalesce(1).saveAsTextFile("LAW_CAT_CD.out")
     sc.stop()

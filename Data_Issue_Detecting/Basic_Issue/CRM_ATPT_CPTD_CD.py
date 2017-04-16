@@ -36,5 +36,5 @@ if __name__ == "__main__":
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.saveAsTextFile("CRM_ATPT_CPTD_CD.out")
+    counts.coalesce(1).saveAsTextFile("CRM_ATPT_CPTD_CD.out")
     sc.stop()

@@ -36,5 +36,5 @@ if __name__ == "__main__":
     counts = lines.map(process) \
             .sortByKey() \
             .map(output)
-    counts.saveAsTextFile("KY_CD.out")
+    counts.coalesce(1).saveAsTextFile("KY_CD.out")
     sc.stop()
