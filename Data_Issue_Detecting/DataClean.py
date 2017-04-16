@@ -29,7 +29,7 @@ def loadData():
             if not line:
                 break
             [key, value] = line.split("\t")
-            duplicateCMPNumberList.append(key)
+            duplicateCMPNumberList.add(key)
 
     if os.path.isfile('./Other_Issue/InvalidPDCodeMapping.out/part-00000'):
         file = open("./Other_Issue/InvalidPDCodeMapping.out/part-00000")
@@ -38,7 +38,7 @@ def loadData():
             if not line:
                 break
             [key, value] = line.split("\t")
-            invalidPDCodeMappingList.append(key)
+            invalidPDCodeMappingList.add(key)
 
     if os.path.isfile('./Other_Issue/InvalidOffenseCodeMapping.out/part-00000'):
         file = open("./Other_Issue/InvalidOffenseCodeMapping.out/part-00000")
@@ -83,7 +83,7 @@ def loadData():
             if not line:
                 break
             [key, value] = line.split("\t")
-            invalidEmptyGeoList.append(key)
+            invalidEmptyGeoSet.add(key)
 
 
 def isNullValue(x):
@@ -107,7 +107,7 @@ def mappingCheck(x):
         and not ifInvalidIndexRecord(x[8], invalidPDCodeMappingList) \
         and not ifInvalidMappingRecord(x[6], x[7], invalidOffenseCodeDetailRecord) \
         and not ifInvalidMappingRecord(x[8], x[6], invalidPD_OFNSRecord) \
-        and not ifInvalidIndexRecord(x[0], invalidEmptyGeoList)
+        and not ifInvalidIndexRecord(x[0], invalidEmptyGeoSet)
 def toStrip(x):
     for i in range(len(x)):
        x[i] = x[i].strip()
@@ -118,12 +118,12 @@ area = ("MANHATTAN", "BRONX", "BROOKLYN", "QUEENS", "STATEN ISLAND")
 crimeState = ("COMPLETED", "ATTEMPTED")
 offenseLevel = ("FELONY", "MISDEMEANOR", "VIOLATION")
 invalidPrecinctBoroRecord = {}
-duplicateCMPNumberList = []
-invalidPDCodeMappingList = []
+duplicateCMPNumberList = set()
+invalidPDCodeMappingList = set()
 invalidOffenseCodeDetailRecord = {}
 invalidPDCodeDetailRecord = {}
 invalidPD_OFNSRecord = {}
-invalidEmptyGeoList = []
+invalidEmptyGeoSet = set()
 
 
 loadData()
