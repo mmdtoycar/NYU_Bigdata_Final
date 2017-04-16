@@ -18,7 +18,7 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[7], 1)) \
+    counts = lines.map(lambda x: ((x[6], x[7]),1)) \
             .reduceByKey(add) \
             .sortByKey() \
             .map(output)

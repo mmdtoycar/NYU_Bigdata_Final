@@ -24,5 +24,5 @@ if __name__ == "__main__":
             .map(lambda x: (x[0], (x[1],x[2],x[3],x[4],x[5]))) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("SexRape.out")
+    counts.coalesce(1).saveAsTextFile("SexRape_Coordinate_mapping.out")
     sc.stop()
