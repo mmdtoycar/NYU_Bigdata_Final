@@ -34,5 +34,9 @@ if __name__ == "__main__":
             .map(lambda x: (x[0], (x[1],x[2],x[3],x[4],x[5],x[6]))) \
             .sortByKey() \
             .map(output)
+<<<<<<< HEAD
     counts.coalesce(1).saveAsTextFile("InvalidSexRape_Geo.out")
+=======
+    counts.coalesce(1).saveAsTextFile("SexRape_Coordinate_mapping.out")
+>>>>>>> 5c72330b0337dfc19b4869bbdc25c33e8941c220
     sc.stop()

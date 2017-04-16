@@ -91,7 +91,8 @@ def isNullValue(x):
             (x[3] == "" and x[4] != "" or x[3] != "" and x[4] == "") or x[5] == "" or 
 			x[6] == "" or x[7] == "" or x[8] == "" or x[9] == "" or x[10] == "" or 
 			x[11] == "" or x[12] == "" or x[13] == "" or x[14] == "" or x[16] == "" or
-			x[19] == "" or x[20] == "" or x[21] == "" or x[22] == "" or x[23] == "")
+			not(x[19] == "" and x[20] == "" and x[21] == "" and x[22] == "" and x[23] == "" or
+                x[19] != "" and x[20] != "" and x[21] != "" and x[22] != "" and x[23] != ""))
 def isInSpecificRange(x):
     return x[15] in location and x[13] in area and x[10] in crimeState and x[11] in offenseLevel
 def dataTypeCheck(x):
