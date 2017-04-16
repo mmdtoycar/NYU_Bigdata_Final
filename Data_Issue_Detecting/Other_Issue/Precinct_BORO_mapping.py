@@ -7,6 +7,8 @@ from csv import reader
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
+def ifHasConfilt(x):
+    return x in invalidCollect
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -26,20 +28,29 @@ if __name__ == "__main__":
     counts = counts.reduceByKey(add) \
             .sortByKey()
 
+    invalid2 = lines.filter(lambda x: x[14] != "") \
+                 .map(lambda x: ((x[14], x[13]), 1)) \
+                 .reduceByKey(add) \
+                 .map(lambda x: (x[0][0], x[0][1])) \
+                 .groupByKey() \
+                 .filter(lambda x: len(x[1]) > 1) \
+                 .map(lambda x: x[0]) \
 
-    invalid = counts.map(lambda x: (x[0], 1)) \
-                .reduceByKey(add) \
-                .filter(lambda x: x[1] > 1) \
-                .map(lambda x: x[0]) \
-                .sortByKey() \
-                .map(output)
+    invalidCollect = invalid2.collect();
 
-    conflicts = counts.filter(lambda x: ifHasConfilt(x)) \
-                    .map(lambda x: (x[0][0], (x[0][1], x[1]))) \
+    # invalid = counts.map(lambda x: (x[0], 1)) \
+    #             .reduceByKey(add) \
+    #             .filter(lambda x: x[1] > 1) \
+    #             .map(lambda x: x[0]) \
+    #             .sortByKey() \
+    #             .map(output)
+
+    conflicts = counts.filter(lambda x: (ifHasConfilt(x[0][0]))) \
                     .sortByKey() \
                     .map(output)
 
     counts = counts.map(output);
     counts.coalesce(1).saveAsTextFile("Precinct_BORO_Mapping.out")
-    conflicts = conflicts.coalesce(1).saveAsTextFile("InvalidPrecinct_BORO_Mapping.out")
+    conflicts.coalesce(1).saveAsTextFile("InvalidPrecinct_BORO_Mapping.out")
+    # invalid2.coalesce(1).saveAsTextFile("Invalid.out")
     sc.stop()
