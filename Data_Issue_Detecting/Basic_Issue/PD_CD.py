@@ -12,7 +12,7 @@ def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
 def process(x):
-    data = x[8];
+    data = x[8].strip()
     baseType = checkBaseType(data)
     semanticType = "Three_Digit_Internal_Classification_Code"
     if data == "":
