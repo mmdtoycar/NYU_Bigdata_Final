@@ -8,7 +8,8 @@ from helper.STRING_UTILS import ifNotValidThreeDigitString
 from helper.CHECK_VALID_DATE import ifIsNotValidDateString, ifIsNotValidTimeString
 
 def isNullValue(x):
-	return not(x[0] == "" or x[1] == "" or x[2] == "" or x[3] =="" or x[5] == "" or
+	return not(x[0] == "" or (x[1] == "" and x[2] != "" or x[1] != "" and x[2] == "") or
+            (x[3] == "" and x[4] != "" or x[3] != "" and x[4] == "") or x[5] == "" or 
 			x[6] == "" or x[7] == "" or x[8] == "" or x[9] == "" or x[10] == "" or 
 			x[11] == "" or x[12] == "" or x[13] == "" or x[14] == "" or x[16] == "" or
 			x[19] == "" or x[20] == "" or x[21] == "" or x[22] == "" or x[23] == "")
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     cleanedData = lines.map(toStrip) \
                     .filter(isNullValue) \
     				.filter(dataTypeCheck) \
-                    .filter(isInSpecificRange)
- 
+                    .filter(isInSpecificRange) 
+                    # .filter(mappingCheck)
     cleanedData.coalesce(1).saveAsTextFile("DataClean.out")
     
