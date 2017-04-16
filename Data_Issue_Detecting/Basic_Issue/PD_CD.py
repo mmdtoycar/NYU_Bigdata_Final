@@ -12,9 +12,9 @@ def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
 def process(x):
-    data = x[6];
+    data = x[8];
     baseType = checkBaseType(data)
-    semanticType = "Three_Digit_Offense_Classification_Code"
+    semanticType = "Three_Digit_Internal_Classification_Code"
     if data == "":
         return (data, "{}\t{}\tNULL".format(baseType, semanticType))
     elif ifNotValidThreeDigitString(data):
@@ -36,5 +36,5 @@ if __name__ == "__main__":
     counts = lines.map(process) \
             .sortByKey() \
             .map(output)
-    counts.saveAsTextFile("KY_CD.out")
+    counts.saveAsTextFile("PD_CD.out")
     sc.stop()
