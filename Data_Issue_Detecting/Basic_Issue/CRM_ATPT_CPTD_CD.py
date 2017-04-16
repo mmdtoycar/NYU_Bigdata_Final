@@ -1,5 +1,7 @@
+# this file explores the CRM_ATPT_CPTD_CD column,
+# value ranges in completed and attempted. Any value out of this 
+# range will be considered Invalid
 from __future__ import print_function
-
 import sys
 from operator import add
 from pyspark import SparkContext
@@ -8,9 +10,6 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
-
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
 
 def process(x):
     baseType = checkBaseType(x)

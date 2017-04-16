@@ -9,9 +9,6 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
-
 def process(x):
     baseType = checkBaseType(x)
     semanticType = "Name of borough"

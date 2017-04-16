@@ -19,12 +19,7 @@ def checkBaseType(x):
         return "DATETIME"
     else:
         return "TEXT"
-def isIntOrNot(x):
-	try:
-		int(x)
-		return True
-	except:
-		return False
+        
 def process(x):
     baseType = checkBaseType(x)
     semanticType = "X-Coordinate"

@@ -9,9 +9,6 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
-
 def process(x):
     baseType = checkBaseType(x)
     semanticType = "Specific location of occurrence"
@@ -21,7 +18,9 @@ def process(x):
         return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x, "{}\t{}\tInvalid".format(baseType, semanticType))
+
 location = {"INSIDE", "OPPOSITE OF", "FRONT OF", "REAR OF"}
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
