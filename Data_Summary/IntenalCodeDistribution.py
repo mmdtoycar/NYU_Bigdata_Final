@@ -18,9 +18,11 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: ((x[8], x[9]),1)) \
+    counts = lines.map(lambda x: ((x[9], x[8]),1)) \
             .reduceByKey(add) \
-            .sortByKey() \
+            .map(lambda x: (x[1], x[0])) \
+            .sortByKey(False) \
+            .map(lambda x: (x[1], x[0])) \
             .map(output)
     counts.coalesce(1).saveAsTextFile("InternalCodeDistribution.out")
     sc.stop()

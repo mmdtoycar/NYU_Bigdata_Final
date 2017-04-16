@@ -20,7 +20,9 @@ if __name__ == "__main__":
     lines = lines.mapPartitions(lambda x : reader(x))
     counts = lines.map(lambda x: (x[16], 1)) \
             .reduceByKey(add) \
-            .sortByKey() \
+            .map(lambda x: (x[1], x[0])) \
+            .sortByKey(False) \
+            .map(lambda x: (x[1], x[0])) \
             .map(output)
     counts.coalesce(1).saveAsTextFile("PremisesDistribution.out")
     sc.stop()

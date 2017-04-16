@@ -18,9 +18,11 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[14], 1)) \
+    counts = lines.map(lambda x: ((x[14],x[13]) 1)) \
             .reduceByKey(add) \
-            .sortByKey() \
+            .map(lambda x: (x[1], x[0])) \
+            .sortByKey(False) \
+            .map(lambda x: (x[1], x[0])) \
             .map(output)
     counts.coalesce(1).saveAsTextFile("PrecinctDistribution.out")
     sc.stop()

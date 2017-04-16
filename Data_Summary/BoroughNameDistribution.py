@@ -18,10 +18,11 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: ((x[13],x[14]), 1)) \
+    counts = lines.map(lambda x: (x[13], 1)) \
             .reduceByKey(add) \
             .map(lambda x: (x[1], x[0])) \
             .sortByKey() \
+            .map(lambda x: (x[1], x[0])) \
             .map(output)
     counts.coalesce(1).saveAsTextFile("BoroughNameDistribution.out")
     sc.stop()
