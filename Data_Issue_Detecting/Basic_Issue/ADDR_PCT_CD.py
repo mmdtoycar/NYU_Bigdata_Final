@@ -14,7 +14,7 @@ def process(x):
     semanticType = "precinct number"
     if x == "":
         return (x, "{}\t{}\tNULL".format(baseType, semanticType))
-    elif re.match(r"^\d{1-3}$", x) :
+    elif re.match(r"^\d{1,3}$", x) :
         return (x, "{}\t{}\tValid".format(baseType, semanticType))
     else :
         return (x, "{}\t{}\tInvalid".format(baseType, semanticType))

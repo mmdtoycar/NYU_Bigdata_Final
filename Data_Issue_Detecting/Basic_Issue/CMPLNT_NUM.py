@@ -1,5 +1,6 @@
+# this file explores the CMPLNT_NUM column, CMPLNT_NUM must be unique
+# any duplicate CMPLNT_NUM will be marked as Invalid
 from __future__ import print_function
-
 import sys
 from operator import add
 from pyspark import SparkContext
@@ -8,9 +9,6 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
-
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
 
 def process(x):
     baseType = checkBaseType(x[0])
@@ -37,7 +35,7 @@ if __name__ == "__main__":
     # store the internal result
     element = counts
     counts = counts.reduceByKey(add) \
-            .filter(lambda x : (ifIsNotValidNumberString(x[0]))) \
+            .filter(lambda x : x[1] > 1) \
             .map(lambda x: x[0]) \
             .collect()
     element = element.map(process) \

@@ -9,9 +9,6 @@ from helper.CHECK_BASE_TYPE import checkBaseType
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-def ifIsNotValidNumberString(str):
-    return not str.isdigit()
-
 def process(x):
     baseType = checkBaseType(x)
     semanticType = "NYC park name"
@@ -34,5 +31,5 @@ if __name__ == "__main__":
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("PREM_TYP_DESC.out")
+    counts.coalesce(1).saveAsTextFile("PARKS_NM.out")
     sc.stop()
