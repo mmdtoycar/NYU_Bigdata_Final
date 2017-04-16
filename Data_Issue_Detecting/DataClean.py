@@ -76,6 +76,15 @@ def loadData():
             if value not in invalidPD_OFNSRecord.get(key):
                 invalidPD_OFNSRecord.get(key).append(value)
 
+    if os.path.isfile('./Other_Issue/InvalidSexRape_Geo.out/part-00000'):
+        file = open("./Other_Issue/InvalidSexRape_Geo.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            invalidEmptyGeoList.append(key)
+
 
 def isNullValue(x):
 	return not(x[0] == "" or (x[1] == "" and x[2] != "" or x[1] != "" and x[2] == "") or
@@ -96,7 +105,8 @@ def mappingCheck(x):
         and not ifInvalidIndexRecord(x[0], duplicateCMPNumberList) \
         and not ifInvalidIndexRecord(x[8], invalidPDCodeMappingList) \
         and not ifInvalidMappingRecord(x[6], x[7], invalidOffenseCodeDetailRecord) \
-        and not ifInvalidMappingRecord(x[8], x[6], invalidPD_OFNSRecord)
+        and not ifInvalidMappingRecord(x[8], x[6], invalidPD_OFNSRecord) \
+        and not ifInvalidIndexRecord(x[0], invalidEmptyGeoList)
 def toStrip(x):
     for i in range(len(x)):
        x[i] = x[i].strip()
@@ -112,6 +122,7 @@ invalidPDCodeMappingList = []
 invalidOffenseCodeDetailRecord = {}
 invalidPDCodeDetailRecord = {}
 invalidPD_OFNSRecord = {}
+invalidEmptyGeoList = []
 
 
 loadData()
@@ -133,4 +144,5 @@ if __name__ == "__main__":
                     .filter(isInSpecificRange) \
                     .filter(mappingCheck)
     cleanedData.coalesce(1).saveAsTextFile("DataClean.out")
+
     

@@ -8,6 +8,17 @@ from csv import reader
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
+def isInvalid(x):
+    allEmpty = ifAllEmpty(x)
+    RAPEOrSexCrime = ifRAPEOrSexCrime(x)
+    return (allEmpty and not RAPEOrSexCrime) or (not allEmpty and RAPEOrSexCrime)
+
+def ifAllEmpty(x):
+    return x[2].strip() == "" and x[3].strip() == "" and x[4].strip() == "" and x[5].strip() == "" and x[6].strip() == ""
+
+def ifRAPEOrSexCrime(x):
+    return x[1] == "RAPE" or x[1] == "SEX CRIMES"
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -18,11 +29,10 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[7],x[19],x[20],x[21],x[22],x[23])) \
-            .filter(lambda x: x[0] == "RAPE" or x[0] == "SEX CRIMES") \
-            .filter(lambda x: x[1] != "" or x[2] != "" or x[3] != "" or x[4] != "" or x[5] != "") \
-            .map(lambda x: (x[0], (x[1],x[2],x[3],x[4],x[5]))) \
+    counts = lines.map(lambda x: (x[0],x[7],x[19],x[20],x[21],x[22],x[23])) \
+            .filter(lambda x: isInvalid(x)) \
+            .map(lambda x: (x[0], (x[1],x[2],x[3],x[4],x[5],x[6]))) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("SexRape.out")
+    counts.coalesce(1).saveAsTextFile("InvalidSexRape_Geo.out")
     sc.stop()
