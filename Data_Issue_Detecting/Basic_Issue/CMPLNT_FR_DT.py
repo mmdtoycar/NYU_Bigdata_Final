@@ -11,16 +11,16 @@ from helper.CHECK_VALID_DATE import ifIsNotValidDateString
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
 
-
 def process(x):
-    baseType = checkBaseType(x[1])
+    data = x[1].strip()
+    baseType = checkBaseType(data)
     semanticType = "Complaint_Starting_Date"
-    if x[1] == "":
-        return (x[1], "{}\t{}\tNULL".format(baseType, semanticType))
-    elif(x[0] not in counts):
-        return (x[1], "{}\t{}\tValid".format(baseType, semanticType))
-    else :
-        return (x[1], "{}\t{}\tInvalid".format(baseType, semanticType))
+    if data == "":
+        return (data, "{}\t{}\tNULL".format(baseType, semanticType))
+    elif ifIsNotValidDateString(x[1]):
+        return (data, "{}\t{}\tInvalid".format(baseType, semanticType))
+    else:
+        return (data, "{}\t{}\tValid".format(baseType, semanticType))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -32,15 +32,10 @@ if __name__ == "__main__":
     header = lines.first()
     lines = lines.filter(lambda line: line != header)
 
-    lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[0].strip(), x[1].strip())) 
-    # store the internal result
-    element = counts
-    counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
-            .map(lambda x: x[0]) \
-            .collect()
-    element = element.map(process) \
+    lines = lines.mapPartitions(lambda x : reader(x)) 
+    counts = lines.map(process) \
             .sortByKey() \
             .map(output)
-    element.saveAsTextFile("CMPLNT_FR_DT.out")
+
+    counts.saveAsTextFile("CMPLNT_FR_DT.out")
     sc.stop()

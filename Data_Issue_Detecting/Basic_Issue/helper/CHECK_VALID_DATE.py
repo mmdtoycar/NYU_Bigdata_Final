@@ -12,3 +12,9 @@ def ifIsNotValidDateString(str):
         ifCorrectDate = False
     finally:
         return not ifCorrectDate
+
+def ifIsNotValidTimeString(str):
+    if re.match(r"^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$", str):
+        return False
+    else :
+        return True
