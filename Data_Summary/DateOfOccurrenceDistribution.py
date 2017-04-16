@@ -22,9 +22,7 @@ if __name__ == "__main__":
             .filter(lambda x: x!="") \
             .map(lambda x: (x.split("/")[0], 1)) \
             .reduceByKey(add) \
-            .map(lambda x: (x[1], x[0])) \
-            .sortByKey(False) \
-            .map(lambda x: (x[1], x[0])) \
+            .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("DateReportedToPoliceDistribution.out")
+    counts.coalesce(1).saveAsTextFile("DateOfOccurrenceDistribution.out")
     sc.stop()
