@@ -29,5 +29,5 @@ if __name__ == "__main__":
             .map(process) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("DuplicateCMPNumber.out")
+    counts.coalesce(1).saveAsTextFile("InvalidDuplicateCMPNumber.out")
     sc.stop()

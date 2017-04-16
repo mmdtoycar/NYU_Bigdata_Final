@@ -18,8 +18,8 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.filter(lambda x: x[6] != "") \
-                 .map(lambda x: ((x[6], x[7]), 1)) 
+    counts = lines.filter(lambda x: x[8] != "") \
+                 .map(lambda x: ((x[8], x[6]), 1)) 
     counts = counts.reduceByKey(add) \
             .sortByKey()
 
@@ -30,6 +30,6 @@ if __name__ == "__main__":
                 .map(output)
 
     counts = counts.map(output);
-    counts.coalesce(1).saveAsTextFile("OffenseCodeMapping.out")
-    invalid = invalid.coalesce(1).saveAsTextFile("InvalidOffenseCodeMapping.out")
+    counts.coalesce(1).saveAsTextFile("PDCode_KYCode_Mapping.out")
+    invalid = invalid.coalesce(1).saveAsTextFile("InvalidPDCode_KYCode_Mapping.out")
     sc.stop()

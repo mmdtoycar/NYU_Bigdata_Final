@@ -23,12 +23,12 @@ if __name__ == "__main__":
     counts = counts.reduceByKey(add) \
             .sortByKey()
 
-    duplicates = counts.map(lambda x: (x[0][0], 1)) \
+    conflicts = counts.map(lambda x: (x[0][0], 1)) \
                 .reduceByKey(add) \
                 .filter(lambda x: x[1] > 1 ) \
                 .map(output)
 
     counts = counts.map(output);
     counts.coalesce(1).saveAsTextFile("PDCodeMapping.out")
-    duplicates = duplicates.coalesce(1).saveAsTextFile("InvalidPDCodeMapping.out")
+    conflicts = conflicts.coalesce(1).saveAsTextFile("InvalidPDCodeMapping.out")
     sc.stop()
