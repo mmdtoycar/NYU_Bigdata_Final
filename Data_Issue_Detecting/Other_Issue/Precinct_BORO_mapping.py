@@ -47,10 +47,18 @@ if __name__ == "__main__":
 
     conflicts = counts.filter(lambda x: (ifHasConfilt(x[0][0]))) \
                     .sortByKey() \
+                    
+
+    invalidOutput = conflicts.filter(lambda x: int(x[1]) < 100) \
+                    .map(lambda x: (x[0][0], x[0][1])) \
+                    .sortByKey() \
                     .map(output)
+
+    conflicts.map(output)
 
     counts = counts.map(output);
     counts.coalesce(1).saveAsTextFile("Precinct_BORO_Mapping.out")
-    conflicts.coalesce(1).saveAsTextFile("InvalidPrecinct_BORO_Mapping.out")
+    conflicts.coalesce(1).saveAsTextFile("ConflictPrecinct_BORO_Mapping.out")
+    invalidOutput.coalesce(1).saveAsTextFile("InvalidPrecinct_BORO_Mapping.out")
     # invalid2.coalesce(1).saveAsTextFile("Invalid.out")
     sc.stop()
