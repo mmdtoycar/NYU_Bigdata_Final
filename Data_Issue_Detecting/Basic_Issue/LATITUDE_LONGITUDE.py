@@ -11,12 +11,12 @@ def output(Pair):
 def process(x):
     baseType = "DECIMAL"
     semanticType = "Latitude&Longitude"
-    if x[0] == "" or x[1] == "":
-        return (x[2], "{}\t{}\tNULL".format(baseType, semanticType))
-    elif x[2] == "({}, {})".format(x[0],x[1]):
-        return (x[2], "{}\t{}\tValid".format(baseType, semanticType))
+    if x[0][0] == "" or x[0][1] == "":
+        return (x[1], "{}\t{}\tNULL".format(baseType, semanticType))
+    elif x[1] == "({}, {})".format(x[0][0],x[0][1]):
+        return (x[1], "{}\t{}\tValid".format(baseType, semanticType))
     else :
-        return (x[2], "{}\t{}\tInvalid".format(baseType, semanticType))
+        return (x[1], "{}\t{}\tInvalid".format(baseType, semanticType))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -28,9 +28,13 @@ if __name__ == "__main__":
     lines = lines.filter(lambda line: line != header)
 
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: (x[21],x[22],x[23])) \
-            .map(process) \
+    counts = lines.map(lambda x: ((x[21],x[22]),x[23]) ) 
+    invalidMappings = counts.filter(lambda x: x[0][0] != "" and x[0][1] != "" and x[1] !="") \
+                     .filter(lambda x: x[1] != "({}, {})".format(x[0][0],x[0][1])) \
+                     .map(output)
+    counts = counts.map(process) \
             .sortByKey() \
             .map(output)
+    invalidMappings.coalesce(1).saveAsTextFile("INVALIDMAPPINGS.out")
     counts.coalesce(1).saveAsTextFile("LATITUDE_LONGITUDE.out")
     sc.stop()
