@@ -6,7 +6,7 @@ from csv import reader
 from Basic_Issue.helper.CHECK_BASE_TYPE import checkBaseType,isIntOrNot, isFloatOrNot
 from Basic_Issue.helper.STRING_UTILS import ifNotValidThreeDigitString
 from Basic_Issue.helper.CHECK_VALID_DATE import ifIsNotValidDateString, ifIsNotValidTimeString
-from Other_Issue.helper.removeConflictPrecinctBoro import ifIsInvalidPrecinctBoroRecord
+from Other_Issue.helper.removeInvalid import *
 import os
 
 def loadData():
@@ -21,6 +21,60 @@ def loadData():
                 invalidPrecinctBoroRecord[key] = []
             if value not in invalidPrecinctBoroRecord.get(key):
                 invalidPrecinctBoroRecord.get(key).append(value)
+
+    if os.path.isfile('./Other_Issue/InvalidDuplicateCMPNumber.out/part-00000'):
+        file = open("./Other_Issue/InvalidDuplicateCMPNumber.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            duplicateCMPNumberList.append(key)
+
+    if os.path.isfile('./Other_Issue/InvalidPDCodeMapping.out/part-00000'):
+        file = open("./Other_Issue/InvalidPDCodeMapping.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            invalidPDCodeMappingList.append(key)
+
+    if os.path.isfile('./Other_Issue/InvalidOffenseCodeMapping.out/part-00000'):
+        file = open("./Other_Issue/InvalidOffenseCodeMapping.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            if not invalidOffenseCodeDetailRecord.has_key(key):
+                invalidOffenseCodeDetailRecord[key] = []
+            if value not in invalidOffenseCodeDetailRecord.get(key):
+                invalidOffenseCodeDetailRecord.get(key).append(value)
+
+    if os.path.isfile('./Other_Issue/InvalidPDCodeMapping.out/part-00000'):
+        file = open("./Other_Issue/InvalidPDCodeMapping.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            if not invalidPDCodeDetailRecord.has_key(key):
+                invalidPDCodeDetailRecord[key] = []
+            if value not in invalidPDCodeDetailRecord.get(key):
+                invalidPDCodeDetailRecord.get(key).append(value)
+
+    if os.path.isfile('./Other_Issue/InvalidPD_OFNS_Mapping.out/part-00000'):
+        file = open("./Other_Issue/InvalidPD_OFNS_Mapping.out/part-00000")
+        while 1:
+            line = file.readline().rstrip('\n')
+            if not line:
+                break
+            [key, value] = line.split("\t")
+            if not invalidPD_OFNSRecord.has_key(key):
+                invalidPD_OFNSRecord[key] = []
+            if value not in invalidPD_OFNSRecord.get(key):
+                invalidPD_OFNSRecord.get(key).append(value)
 
 
 def isNullValue(x):
@@ -38,7 +92,11 @@ def dataTypeCheck(x):
     and isFloatOrNot(x[19]) and isFloatOrNot(x[20]) and isFloatOrNot(x[21]) and \
     isFloatOrNot(x[22])
 def mappingCheck(x):
-    pass
+    return not ifInvalidMappingRecord(x[14], x[13], invalidPrecinctBoroRecord) \
+        and not ifInvalidIndexRecord(x[0], duplicateCMPNumberList) \
+        and not ifInvalidIndexRecord(x[8], invalidPDCodeMappingList) \
+        and not ifInvalidMappingRecord(x[6], x[7], invalidOffenseCodeDetailRecord) \
+        and not ifInvalidMappingRecord(x[8], x[6], invalidPD_OFNSRecord)
 def toStrip(x):
     for i in range(len(x)):
        x[i] = x[i].strip()
@@ -49,6 +107,12 @@ area = ("MANHATTAN", "BRONX", "BROOKLYN", "QUEENS", "STATEN ISLAND")
 crimeState = ("COMPLETED", "ATTEMPTED")
 offenseLevel = ("FELONY", "MISDEMEANOR", "VIOLATION")
 invalidPrecinctBoroRecord = {}
+duplicateCMPNumberList = []
+invalidPDCodeMappingList = []
+invalidOffenseCodeDetailRecord = {}
+invalidPDCodeDetailRecord = {}
+invalidPD_OFNSRecord = {}
+
 
 loadData()
 
@@ -64,8 +128,9 @@ if __name__ == "__main__":
 
     lines = lines.mapPartitions(lambda x : reader(x))
     cleanedData = lines.map(toStrip) \
-                    .filter(isNullValue and dataTypeCheck and isInSpecificRange) \
-                    .filter(lambda x: not ifIsInvalidPrecinctBoroRecord(x[14], x[13], invalidPrecinctBoroRecord))
-                    # .filter(mappingCheck)
+                    .filter(isNullValue) \
+    				.filter(dataTypeCheck) \
+                    .filter(isInSpecificRange) \
+                    .filter(mappingCheck)
     cleanedData.coalesce(1).saveAsTextFile("DataClean.out")
     
