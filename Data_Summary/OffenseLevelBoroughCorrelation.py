@@ -25,5 +25,5 @@ if __name__ == "__main__":
             .sortByKey() \
             .map(lambda x:(x[1], x[0])) \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("OffenseLevelBoroughCorrelation.csv")
+    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("OffenseLevelBoroughCorrelation.csv")
     sc.stop()

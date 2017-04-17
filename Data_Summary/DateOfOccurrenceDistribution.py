@@ -24,5 +24,5 @@ if __name__ == "__main__":
             .reduceByKey(add) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("DateOfOccurrenceDistribution.out")
+    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("DateOfOccurrenceDistribution.out")
     sc.stop()

@@ -24,5 +24,5 @@ if __name__ == "__main__":
             .sortByKey(False) \
             .map(lambda x: (x[1], x[0])) \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("PremisesDistribution.out")
+    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("PremisesDistribution.out")
     sc.stop()

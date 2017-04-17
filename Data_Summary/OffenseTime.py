@@ -34,5 +34,5 @@ if __name__ == "__main__":
             .map(lambda x: (x[1], x[0])) \
             .sortByKey(False) \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("OffenseTime.out")
+    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("OffenseTime.out")
     sc.stop()

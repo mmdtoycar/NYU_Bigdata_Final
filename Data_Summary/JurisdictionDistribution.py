@@ -22,5 +22,5 @@ if __name__ == "__main__":
             .reduceByKey(add) \
             .sortByKey() \
             .map(output)
-    counts.coalesce(1).saveAsTextFile("JurisdictionDistribution.out")
+    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("JurisdictionDistribution.out")
     sc.stop()
