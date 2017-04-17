@@ -6,9 +6,6 @@ from pyspark import SparkContext
 from csv import reader
 from pyspark.sql import SQLContext
 
-def output(Pair):
-    return "%s\t%s" % (Pair[0], Pair[1])
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -21,9 +18,8 @@ if __name__ == "__main__":
     lines = lines.mapPartitions(lambda x : reader(x))
     counts = lines.map(lambda x: (x[11], 1)) \
             .reduceByKey(add) \
-            .sortByKey() \
-            .map(output)
+            .sortByKey()
     sqlContext = SQLContext(sc)
-    df = sqlContext.createDataFrame(counts)
-    df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("OffenseLevelDistribution.out")
+    df = sqlContext.createDataFrame(counts, ['key','count'])
+    df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("OffenseLevelDistribution.csv")
     sc.stop()
