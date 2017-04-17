@@ -7,6 +7,8 @@ from Basic_Issue.helper.CHECK_BASE_TYPE import checkBaseType,isIntOrNot, isFloat
 from Basic_Issue.helper.STRING_UTILS import ifNotValidThreeDigitString
 from Basic_Issue.helper.CHECK_VALID_DATE import ifIsNotValidDateString, ifIsNotValidTimeString
 from Other_Issue.helper.removeInvalid import *
+from pyspark.sql import SQLContext
+
 import os
 
 def loadData():
@@ -144,6 +146,9 @@ if __name__ == "__main__":
     				.filter(dataTypeCheck) \
                     .filter(isInSpecificRange) \
                     .filter(mappingCheck)
-    cleanedData.coalesce(1).saveAsTextFile("DataClean.out")
+    sqlContext = SQLContext(sc)
+    df = sqlContext.createDataFrame(cleanedData)
+    df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("DataClean.csv")
+    # cleanedData.coalesce(1).saveAsTextFile("DataClean.csv")
 
     
