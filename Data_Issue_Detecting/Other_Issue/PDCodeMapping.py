@@ -34,7 +34,7 @@ if __name__ == "__main__":
                  .map(lambda x: (x[0][0], x[0][1])) \
                  .groupByKey() \
                  .filter(lambda x: len(x[1]) > 1) \
-                 .map(lambda x: x[0]) \
+                 .map(lambda x: x[0])
 
     invalidCollect = invalid2.collect();
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     #             .map(output)
 
     conflicts = counts.filter(lambda x: (ifHasConfilt(x[0][0]))) \
-                    .sortByKey() \
+                    .sortByKey()
                     
 
     invalidOutput = conflicts.filter(lambda x: int(x[1]) < 100) \
