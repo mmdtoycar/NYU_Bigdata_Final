@@ -4,6 +4,7 @@ import sys
 from operator import add
 from pyspark import SparkContext
 from csv import reader
+from pyspark.sql import SQLContext
 
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
@@ -24,5 +25,7 @@ if __name__ == "__main__":
             .sortByKey(False) \
             .map(lambda x: (x[1], x[0])) \
             .map(output)
-    counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("PremisesDistribution.out")
+    sqlContext = SQLContext(sc)
+    df = sqlContext.createDataFrame(counts)
+    df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("PremisesDistribution.out")
     sc.stop()

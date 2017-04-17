@@ -5,6 +5,7 @@ import sys
 from operator import add
 from pyspark import SparkContext
 from csv import reader
+from pyspark.sql import SQLContext
 
 def output(Pair):
     return "%s\t%s" % (Pair[0], Pair[1])
@@ -25,5 +26,6 @@ if __name__ == "__main__":
             .sortByKey() \
             .map(lambda x:(x[1], x[0])) \
             .map(output)
+    sqlContext = SQLContext(sc)
     counts.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("OffenseLevelBoroughCorrelation.csv")
     sc.stop()
