@@ -2,7 +2,9 @@
 NYU Bigdata final project
 
 All of our codes is done by using Spark!
+
 Approaches to run the code :
+
 spark-submit [filename] NYPD_Complaint_Data_Historic.csv
 and it will generate the output file in the same directory.
 
