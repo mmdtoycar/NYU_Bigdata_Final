@@ -1,6 +1,11 @@
 # NYU_Bigdata_Final
 NYU Bigdata final project
 
+group members:
+Minda Fang mf3308
+Qiming Zhang qz718
+Mingdi Mao mm8688
+
 All of our codes is done by using Spark!
 
 Approaches to run the code :
