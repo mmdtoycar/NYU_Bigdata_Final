@@ -7,6 +7,7 @@
 
 ## Approaches to run the code :
 All of our codes is done by using Spark!
+
 `spark-submit [filename] NYPD_Complaint_Data_Historic.csv`
 
 Codes are divided into three parts below:
