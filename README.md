@@ -1,11 +1,11 @@
 # NYU_Bigdata_Final
 
-##group members:
+## group members:
 - Minda Fang mf3308
 - Qiming Zhang qz718
 - Mingdi Mao mm8688
 
-##Approaches to run the code :
+## Approaches to run the code :
 All of our codes is done by using Spark!
 `spark-submit [filename] NYPD_Complaint_Data_Historic.csv`
 
