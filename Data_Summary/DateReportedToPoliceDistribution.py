@@ -18,10 +18,10 @@ if __name__ == "__main__":
     lines = lines.mapPartitions(lambda x : reader(x))
     counts =  lines.map(lambda x: x[5]) \
             .filter(lambda x: x!="") \
-            .map(lambda x: (x.split("/")[0], 1)) \
+            .map(lambda x: (x.split("/")[0] + "/" + x.split("/")[2], 1)) \
             .reduceByKey(add) \
             .sortByKey()
     sqlContext = SQLContext(sc)
-    df = sqlContext.createDataFrame(counts, ['key','count'])
+    df = sqlContext.createDataFrame(counts, ['date','count'])
     df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("DateReportedToPoliceDistribution.csv")
     sc.stop()
