@@ -1,12 +1,12 @@
 # NYU_Bigdata_Final
 
 `NYU_Bigdata_Final` is a project developed for the `DS1004 Big Data Analytics` at NYU, which aims to analyze [NYC Crime Data](https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i) of the latest 10 years (2006 - 2015). The project includes detecting data issue, data cleaning and data summary, and data hypotheses.
-### group members:
+## group members:
 - Minda Fang mf3308
 - Qiming Zhang qz718
 - Mingdi Mao mm8688
 
-### Project structure
+## Project structure
 
 The structure of our project is below:
 
@@ -28,7 +28,7 @@ The structure of our project is below:
 
 **Data hypothesis** 
 
-### Approaches to run the code :
+## Approaches to run the code :
 All of our codes is done by using **Spark**!
 
 `spark-submit [filename] NYPD_Complaint_Data_Historic.csv`
