@@ -36,4 +36,4 @@ All of our codes is done by using **Spark**!
 
 
 ## Outcomes
-All result and outcome will be published after the end of this course. See the partial outcomes in [final report](final\ project\ report.pdf).
+All result and outcome will be published after the end of this course. See the partial outcomes in [final report](FinalReport.pdf).
