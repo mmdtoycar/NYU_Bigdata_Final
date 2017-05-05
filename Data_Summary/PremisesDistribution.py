@@ -12,9 +12,6 @@ if __name__ == "__main__":
         exit(-1)
     sc = SparkContext()
     lines = sc.textFile(sys.argv[1], 1)
-    header = lines.first()
-    lines = lines.filter(lambda line: line != header)
-
     lines = lines.mapPartitions(lambda x : reader(x))
     counts = lines.map(lambda x: (x[16], 1)) \
             .reduceByKey(add) \
@@ -22,6 +19,6 @@ if __name__ == "__main__":
             .sortByKey(False) \
             .map(lambda x: (x[1], x[0]))
     sqlContext = SQLContext(sc)
-    df = sqlContext.createDataFrame(counts, ['key','count']) 
-    df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("PremisesDistribution.csv")
+    df = sqlContext.createDataFrame(counts) 
+    df.coalesce(1).write.format('com.databricks.spark.csv').save("PremisesDistribution.csv")
     sc.stop()

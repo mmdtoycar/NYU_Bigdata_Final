@@ -1,4 +1,3 @@
-
 from __future__ import print_function
 
 import sys
@@ -7,6 +6,12 @@ from pyspark import SparkContext
 from csv import reader
 from pyspark.sql import SQLContext
 
+def process(x):
+    date = x.split("/")
+    year = int(date[2])
+    mouth = int(date[0])
+    return ((year,mouth), 1)    
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: task <file>", file=sys.stderr)
@@ -14,12 +19,12 @@ if __name__ == "__main__":
     sc = SparkContext()
     lines = sc.textFile(sys.argv[1], 1)
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: ((x[7],x[11]), 1)) \
+    counts = lines.map(lambda x: x[1]) \
+            .map(process) \
             .reduceByKey(add) \
-            .map(lambda x:(x[1], x[0])) \
-            .sortByKey(False) \
-            .map(lambda x: (str(str(x[1][0])+" "+str(x[1][1])), str(x[0])))
+            .sortByKey() \
+            .map(lambda x: (x[0][0], x[0][1], x[1]))
     sqlContext = SQLContext(sc)
     df = sqlContext.createDataFrame(counts) 
-    df.coalesce(1).write.format('com.databricks.spark.csv').save("OffenseTypeLevelCorrelation.csv")
-    sc.stop()
+    df.coalesce(1).write.format('com.databricks.spark.csv').save("OffenseYearMouth.csv")
+    sc.stop()            

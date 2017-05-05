@@ -28,20 +28,6 @@ if __name__ == "__main__":
         exit(-1)
     sc = SparkContext()
     lines = sc.textFile(sys.argv[1], 1)
-    #extract header
-    header = lines.first()
-    lines = lines.filter(lambda line: line != header)
-
-    # lines = lines.mapPartitions(lambda x : reader(x))
-    # counts = lines.map(lambda x: (x[0].strip(), x[5].strip())) 
-    # # store the internal result
-    # element = counts
-    # counts = counts.filter(lambda x : (ifIsNotValidDateString(x[1]))) \
-    #         .map(lambda x: x[0]) \
-    #         .collect()
-    # element = element.map(process) \
-    #         .sortByKey() \
-    #         .map(output)
     lines = lines.mapPartitions(lambda x : reader(x)) 
     counts = lines.map(process) \
             .sortByKey() \

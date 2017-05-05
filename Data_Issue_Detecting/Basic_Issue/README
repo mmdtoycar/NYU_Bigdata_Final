@@ -1,7 +1,0 @@
-This directory explores the basic data quality issues as below:
-each file produces 4 coloums below:
-1) the original data
-2) a base type (i.e.,  INT/LONG, DECIMAL, TEXT, maybe DATETIME)
-3) a semantic data type (e.g., phone, address, city, state, zipcode) -- here, your script could use, e.g., a regular expression to identify phone numbers, a dictionary to check whether a given string is a city.
-4) a label from the set [NULL -> missing or unknown information, VALID -> valid value from the intended domain of the column, INVALID/OUTLIER -> suspicious or invalid values]
-Note that some columns may have values of multiple types (e.g., telephone, email).

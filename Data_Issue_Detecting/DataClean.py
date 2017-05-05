@@ -114,7 +114,9 @@ def toStrip(x):
     for i in range(len(x)):
        x[i] = x[i].strip()
     return x
-
+def yearFilter(x):
+    pass
+    
 location = ("INSIDE", "OPPOSITE OF", "FRONT OF", "REAR OF", "")
 area = ("MANHATTAN", "BRONX", "BROOKLYN", "QUEENS", "STATEN ISLAND")
 crimeState = ("COMPLETED", "ATTEMPTED")
@@ -145,7 +147,9 @@ if __name__ == "__main__":
                     .filter(isNullValue) \
     				.filter(dataTypeCheck) \
                     .filter(isInSpecificRange) \
-                    .filter(mappingCheck)
+                    .filter(mappingCheck) \
+                    .filter(yearFilter)
+
     sqlContext = SQLContext(sc)
     df = sqlContext.createDataFrame(cleanedData)
     df.coalesce(1).write.format('com.databricks.spark.csv').options(header='true').save("DataClean.csv")
