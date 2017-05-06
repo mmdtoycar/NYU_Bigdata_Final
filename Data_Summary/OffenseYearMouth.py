@@ -19,11 +19,12 @@ if __name__ == "__main__":
     sc = SparkContext()
     lines = sc.textFile(sys.argv[1], 1)
     lines = lines.mapPartitions(lambda x : reader(x))
-    counts = lines.map(lambda x: x[1]) \
+    counts = lines.map(lambda x: x[1].strip()) \
+            .filter(lambda x: x!="") \
             .map(process) \
             .reduceByKey(add) \
             .sortByKey() \
-            .map(lambda x: (x[0][0], x[0][1], x[1]))
+            .map(lambda x: (str(x[0][1])+ "/" + str(x[0][0]), x[1]))
     sqlContext = SQLContext(sc)
     df = sqlContext.createDataFrame(counts) 
     df.coalesce(1).write.format('com.databricks.spark.csv').save("OffenseYearMouth.csv")
