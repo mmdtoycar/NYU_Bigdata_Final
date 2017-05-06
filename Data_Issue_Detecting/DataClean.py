@@ -115,7 +115,10 @@ def toStrip(x):
        x[i] = x[i].strip()
     return x
 def yearFilter(x):
-    pass
+    # pass
+    if x[1] == "":
+        return true;
+    return int(x[1].split("/")[2]) >= 2006
     
 location = ("INSIDE", "OPPOSITE OF", "FRONT OF", "REAR OF", "")
 area = ("MANHATTAN", "BRONX", "BROOKLYN", "QUEENS", "STATEN ISLAND")
