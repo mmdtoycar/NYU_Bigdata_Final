@@ -20,7 +20,7 @@ def isPropertyCrimeAtResidenceHouse(x):
     thisDate = x[1]
     OFND_DESC = x[7].upper()
     location = x[16].upper()
-    return ("LARCENCY" in OFND_DESC or "BURGLARY" in OFND_DESC or "THEFT" in OFND_DESC) \
+    return ("LARCENY" in OFND_DESC or "BURGLARY" in OFND_DESC or "THEFT" in OFND_DESC) \
         and (location == "RESIDENCE - APT. HOUSE" or location == "RESIDENCE-HOUSE" or location == "RESIDENCE - PUBLIC HOUSING") \
         and thisDate != ""
 
