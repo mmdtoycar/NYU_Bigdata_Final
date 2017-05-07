@@ -8,8 +8,8 @@ from pyspark.sql import SQLContext
 
 def process(x):
     date = x.split("/")
-    year = int(date[2])
-    mouth = int(date[0])
+    year = date[2]
+    mouth = date[0]
     return ((year,mouth), 1)    
 
 if __name__ == "__main__":
@@ -24,8 +24,8 @@ if __name__ == "__main__":
             .map(process) \
             .reduceByKey(add) \
             .sortByKey() \
-            .map(lambda x: (str(x[0][1])+ "/" + str(x[0][0]), x[1]))
+            .map(lambda x: (x[0][1]+ "/" + x[0][0], x[1]))
     sqlContext = SQLContext(sc)
     df = sqlContext.createDataFrame(counts) 
-    df.coalesce(1).write.format('com.databricks.spark.csv').save("OffenseYearMouth.csv")
+    df.coalesce(1).write.format('com.databricks.spark.csv').save("OffenseYearMonth.csv")
     sc.stop()            
