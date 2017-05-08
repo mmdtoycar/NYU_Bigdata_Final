@@ -1,3 +1,5 @@
+# Data Integrity Report
+
 1. No wrong number of fields record is found.
 
 2. No duplicate compliant number record is found.
@@ -6,8 +8,8 @@
 
 4. No wrong report date problem is found.
 
-5. 4574 rows of data missing three digit internal classification code. 
-	These 4574 rows of data contains all the offense classification code of "101"(MURDER & NON-NEGL. MANSLAUGHTER).
+5. 4574 rows of data missing three digit internal classification code.  
+   These 4574 rows of data contains all the offense classification code of "101"(MURDER & NON-NEGL. MANSLAUGHTER).
 
 6. 53 offense code and internal code mapping relationship may have problem.
 

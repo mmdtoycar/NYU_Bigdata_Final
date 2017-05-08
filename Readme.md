@@ -1,6 +1,6 @@
-# NYU_Bigdata_Final
+# NYU Bigdata Final Project(CS-GY 9223)
 
-**NYU_Bigdata_Final** is a project developed for the **DS1004 Big Data Analytics** at NYU, which aims to analyze [NYC Crime Data](https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i) of the latest 10 years (2006 - 2015). The project includes detecting data issue, data cleaning and data summary, and data hypotheses.
+**NYU_Bigdata_Final** is a project developed for the **CS-GY_9223 Big Data Analytics** at NYU, which aims to analyze [NYC Crime Data](https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i) of the latest 10 years (2006 - 2015). The project includes detecting data issue, data cleaning and data summary, and data hypotheses.
 ## Group Members:
 - Minda Fang mf3308
 - Qiming Zhang qz718
@@ -15,12 +15,10 @@ The structure of our project is below:
 	* [Other issues](Data_Issue_Detecting/Other_Issue)
 * [Data clean code](Data_Cleaning_Code)
 * [Data summary](Data_Summary) 
-* [DataHypothesis](DataHypothesis)
+* [Data hypothesis](DataHypothesis)
 * [Results](Results)
 	* [Output](Results/Output)
 	* [Plot](Results/plot)	 
-
-<u>Follow the Readme.md in each section to run the code!</u>
 
 **Data issue detecting** is to examine the quality of the datasets. Basic issues include checking the existence of null values, range problem, unexpected type problem. Other issues include checking column correlation mapping prolem and some other problems like unique primary key.
 
@@ -31,12 +29,11 @@ The structure of our project is below:
 **Data hypothesis** 
 
 
-## Approaches to run the code :
+## How to run the code:
 All of our codes is done by using **Spark**!
 
-`spark-submit [filename] NYPD_Complaint_Data_Historic.csv`
-
+Follow the <u>Readme.md</u> in each section to run the code.
 
 
 ## Outcomes
-All result and outcome will be published after the end of this course. See the partial outcomes in [final report](FinalReport.pdf).
+All results and outcomes will be published after the end of this course. See the partial outcomes in [final report](FinalReport.pdf).
