@@ -28,7 +28,7 @@ The structure of our project is below:
 
 **Data hypothesis** 
 
-###Follow the Readme.md in each section to run the code!
+### Follow the Readme.md in each section to run the code!
 
 ## Approaches to run the code :
 All of our codes is done by using **Spark**!
