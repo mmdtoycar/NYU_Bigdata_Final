@@ -17,7 +17,7 @@ The structure of our project is below:
 * [Data summary](Data_Summary) 
 * [Results](Results)
 	* [Output](Results/Output)
-	* [Plot](Results/plot)	 
+	* [Plot](Results/Plot)	 
 
 **Data issue detecting** is to examine the quality of the datasets. Basic issues include checking the existence of null values, range problem, unexpected type problem. Other issues include checking column correlation mapping prolem and some other problems like unique primary key.
 
