@@ -26,7 +26,7 @@ The structure of our project is below:
 **Data summary** is to summarize the NYC crime dataset based on space, time, correlation between columns.  
 
 ## How to run the code:
-All of our codes is done by using **Spark**!
+All of our codes is done by using **Apache Spark**!
 
 Follow the <u>Readme.md</u> in each section to run the code.
 
