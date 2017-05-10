@@ -13,7 +13,7 @@ The structure of our project is below:
 * [Data issue detecting](Data_Issue_Detecting)
 	* [Basic issues](Data_Issue_Detecting/Basic_Issue) 
 	* [Other issues](Data_Issue_Detecting/Other_Issue)
-* [Data clean code](Data_Cleaning_Code)
+* [Data clean code](Data_Issue_Detecting/)
 * [Data summary](Data_Summary) 
 * [Results](Results)
 	* [Output](Results/Output)
