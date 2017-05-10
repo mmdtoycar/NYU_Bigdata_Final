@@ -2,9 +2,9 @@
 
 **NYU_Bigdata_Final** is a project developed for the **CS-GY_9223 Big Data Analytics** at NYU, which aims to analyze [NYC Crime Data](https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i) of the latest 10 years (2006 - 2015). The project includes detecting data issue, data cleaning and data summary, and data hypotheses.
 ## Group Members:
-- Minda Fang mf3308
-- Qiming Zhang qz718
-- Mingdi Mao mm8688
+- Minda Fang (mf3308)
+- Qiming Zhang (qz718)
+- Mingdi Mao (mm8688)
 
 ## Project Structure
 
