@@ -21,7 +21,7 @@ The structure of our project is below:
 
 **Data issue detecting** is to examine the quality of the datasets. Basic issues include checking the existence of null values, range problem, unexpected type problem. Other issues include checking column correlation mapping prolem and some other problems like unique primary key.
 
-**Data clean code** focus on cleaning the dataset based on the issues examined in data issues detecting part. The main script for clean the data is [DataClean.py](Data_Issue_Detecting/DataClean.py). Cleaned Data could be downloaded via this [link](https://drive.google.com/open?id=0B53W-MZXrX4iUGVOSzJKZHF1dFU).
+**Data clean code** focus on cleaning the dataset based on the issues examined in data issues detecting part. The main script for clean the data is [DataClean.py](Data_Issue_Detecting/DataClean.py). Cleaned Data could be found via this [link](https://drive.google.com/open?id=0B53W-MZXrX4iUGVOSzJKZHF1dFU).
 
 **Data summary** is to summarize the NYC crime dataset based on space, time, correlation between columns.  
 
