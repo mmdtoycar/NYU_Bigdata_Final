@@ -1,8 +1,7 @@
-# The instruction to run code here
+# The purpose of code here
 
-```java
+This java project only helps for our initial exploration of the raw data. All the same detection work is done in Apache Spark [data issue detecting part](../Data_Issue_Detecting).
 
-```
 # What we found during cleaning the data
 
 1. No wrong number of fields record is found.
