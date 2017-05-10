@@ -15,7 +15,6 @@ The structure of our project is below:
 	* [Other issues](Data_Issue_Detecting/Other_Issue)
 * [Data clean code](Data_Cleaning_Code)
 * [Data summary](Data_Summary) 
-* [Data hypothesis](DataHypothesis)
 * [Results](Results)
 	* [Output](Results/Output)
 	* [Plot](Results/plot)	 
@@ -25,9 +24,6 @@ The structure of our project is below:
 **Data clean code** focus on cleaning the dataset based on the issues examined in data issues detecting part. The main script for clean the data is [DataClean.py](Data_Issue_Detecting/DataClean.py).
 
 **Data summary** is to summarize the NYC crime dataset based on space, time, correlation between columns.  
-
-**Data hypothesis** 
-
 
 ## How to run the code:
 All of our codes is done by using **Spark**!
