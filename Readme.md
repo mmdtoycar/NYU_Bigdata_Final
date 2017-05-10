@@ -32,4 +32,4 @@ Follow the <u>Readme.md</u> in each section to run the code.
 
 
 ## Outcomes
-All results and outcomes will be published after the end of this course. See the partial outcomes in [final report](/Final report.pdf).
+All results and outcomes will be published after the end of this course. See the partial outcomes in * [final report](/Final report.pdf).
